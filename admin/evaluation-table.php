@@ -9,8 +9,8 @@ include_once '../includes/connection.php';
 
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Grade Table</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Upload Data</a>
+                        <a href="../upload/upload.evaluation.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa-upload fa-sm text-white-50"></i> Upload Evaluation Data</a>
                     </div>
 
                     <!-- Page Heading -->
@@ -29,25 +29,17 @@ include_once '../includes/connection.php';
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                        <th>Student Id</th>
                                         <th>Name</th>
-                                        <th>Subject</th>
-                                        <th>Prelim</th>
-                                        <th>Midterm</th>
-                                        <th>Prefinal</th>
-                                        <th>Final</th>
+                                        <th>Department</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                        <th>Student Id</th>
                                         <th>Name</th>
-                                        <th>Subject</th>
-                                        <th>Prelim</th>
-                                        <th>Midterm</th>
-                                        <th>Prefinal</th>
-                                        <th>Final</th>
+                                        <th>Department</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                         </tr>
                                     </tfoot>
@@ -58,27 +50,26 @@ include_once '../includes/connection.php';
                                         $database = new Connection();
                                         $db = $database->open();
                                         try{	
+
                                             $sql = 'SELECT
                                             *
-                                            FROM tbl_grades
-                                            INNER JOIN tbl_students
-                                            ON tbl_grades.s_id=tbl_students.s_id
-                                            INNER JOIN tbl_subject
-                                            ON tbl_grades.sbj_id=tbl_subject.sbj_id 
-                                            ORDER BY tbl_students.s_name ASC';
+                                            FROM tbl_evaluation
+                                            INNER JOIN tbl_instructor
+                                            ON tbl_evaluation.ins_id=tbl_instructor.ins_id
+                                            ORDER BY tbl_instructor.ins_name ASC';
+                                            // $sql = 'SELECT * FROM tbl_evaluation ORDER BY ins_name ASC';
                                             foreach ($db->query($sql) as $row) {
                                                 ?>
                                                 <tr>
-                                                    <td><?php echo $row["s_id"]?></td>
-                                                    <td><?php echo $row["s_name"]?></td>
-                                                    <td><?php echo $row["sbj_code"]?></td>
-                                                    <td><?php echo $row["prelim"]?></td>
-                                                    <td><?php echo $row["midterm"] ?></td>
-                                                    <td><?php echo $row["prefinal"] ?></td>
-                                                    <td><?php echo $row["final"] ?></td>
+                                                    <td><?php echo $row["ins_name"]?></td>
+                                                    <td><?php echo $row["ins_dept"]?></td>
+                                                    <td><?php echo $row["ins_status"]?></td>
                                                     <td>
-                                                        <a href="#edit_<?php echo $row['s_id']; ?>" class="btn btn-success btn-sm" data-toggle="modal"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-                                                        <a href="#delete_<?php echo $row['s_id']; ?>" class="btn btn-danger btn-sm" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+                                                    <form action="blank.php" method="post" style="margin: 0;">
+                                                        <button type="submit" class="btn btn-success btn-sm" name ="<?php echo $row['ins_id']; ?>">View Evaluation </button>
+                                                        </form>
+                                                        <!-- <a href="#edit_< ?php echo $row['s_id']; ?>" class="btn btn-success btn-sm" data-toggle="modal"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                                                        <a href="#delete_< ?php echo $row['s_id']; ?>" class="btn btn-danger btn-sm" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span> Delete</a> -->
                                                     </td>
                                                     <!-- < ?php include('../modals/user_edit_delete_modal.php'); ?> -->
                                                 </tr>

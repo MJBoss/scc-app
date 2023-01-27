@@ -1,3 +1,11 @@
+<?php
+
+session_start();
+var_dump($_SESSION);
+   var_dump($_POST);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -111,6 +119,10 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Login Screens:</h6>
                         <a class="collapse-item" href="login.html">Login</a>
+                        <a class="collapse-item" href="../admin/blank.php">Blank</a>
+                        <a class="collapse-item" href="../admin/grade-table.php">Grades</a>
+                        <a class="collapse-item" href="../admin/instructor-table.php">Instructor</a>
+                        <a class="collapse-item" href="../admin/evaluation-table.php">Evaluation</a>
                         <a class="collapse-item" href="register.html">Register</a>
                         <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
                         <div class="collapse-divider"></div>
@@ -144,11 +156,11 @@
             </div>
 
             <!-- Sidebar Message -->
-            <div class="sidebar-card d-none d-lg-flex">
+            <!-- <div class="sidebar-card d-none d-lg-flex">
                 <img class="sidebar-card-illustration mb-2" src="../img/undraw_rocket.svg" alt="...">
                 <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
                 <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
-            </div>
+            </div> -->
 
         </ul>
         <!-- End of Sidebar -->
