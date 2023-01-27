@@ -9,7 +9,7 @@ include_once '../includes/connection.php';
 
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Grade Table</h1>
-                        <a href="../upload/upload.evaluation.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                        <a href="../upload/eval.solo.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-upload fa-sm text-white-50"></i> Upload Evaluation Data</a>
                     </div>
 
@@ -58,8 +58,9 @@ include_once '../includes/connection.php';
                                                     <td><?php echo $row["ins_dept"]?></td>
                                                     <td><?php echo $row["ins_status"]?></td>
                                                     <td>
-                                                    <form action="blank.php" method="post" style="margin: 0;">
-                                                        <button type="submit" class="btn btn-success btn-sm" name ="<?php echo $row['ins_id']; ?>">View Evaluation </button>
+                                                    <form action="eval.solo.php" method="post" style="margin: 0;">
+                                                        <input type="hidden" name="ins_id" value="<?php echo $row['ins_id']; ?>">
+                                                        <button type="submit" class="btn btn-success btn-sm" name ="submit">View Evaluation </button>
                                                         </form>
                                                         <!-- <a href="#edit_< ?php echo $row['s_id']; ?>" class="btn btn-success btn-sm" data-toggle="modal"><span class="glyphicon glyphicon-edit"></span> Edit</a>
                                                         <a href="#delete_< ?php echo $row['s_id']; ?>" class="btn btn-danger btn-sm" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span> Delete</a> -->

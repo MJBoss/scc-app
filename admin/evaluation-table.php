@@ -66,7 +66,8 @@ include_once '../includes/connection.php';
                                                     <td><?php echo $row["ins_status"]?></td>
                                                     <td>
                                                     <form action="blank.php" method="post" style="margin: 0;">
-                                                        <button type="submit" class="btn btn-success btn-sm" name ="<?php echo $row['ins_id']; ?>">View Evaluation </button>
+                                                        <input type="hidden" name="ins_id" value="<?php echo $row['ins_id']; ?>">
+                                                        <button type="submit" class="btn btn-success btn-sm" name ="submit">View Evaluation </button>
                                                         </form>
                                                         <!-- <a href="#edit_< ?php echo $row['s_id']; ?>" class="btn btn-success btn-sm" data-toggle="modal"><span class="glyphicon glyphicon-edit"></span> Edit</a>
                                                         <a href="#delete_< ?php echo $row['s_id']; ?>" class="btn btn-danger btn-sm" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span> Delete</a> -->
