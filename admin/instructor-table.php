@@ -9,7 +9,7 @@ include_once '../includes/connection.php';
 
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Grade Table</h1>
-                        <a href="../upload/eval.solo.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                        <a href="../upload/upload.evaluation.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-upload fa-sm text-white-50"></i> Upload Evaluation Data</a>
                     </div>
 
