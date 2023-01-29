@@ -2,6 +2,14 @@
 include_once '../templates/header.php';
 include_once "../includes/connect.php";
 include_once '../includes/connection.php';
+
+$insid = $_POST["ins_id"];
+
+$statement=$conn->prepare("SELECT * FROM tbl_instructor WHERE ins_id = :insid");
+$statement->bindParam(':insid', $insid);
+$statement->execute();
+$ins = $statement->fetch(PDO::FETCH_ASSOC);
+  
 ?>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
@@ -72,7 +80,7 @@ include_once '../includes/connection.php';
                                             <p class="mb-0">Full Name</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0">Johnatan Smith</p>
+                                            <p class="text-muted mb-0"><?php echo $ins["ins_name"] ?></p>
                                         </div>
                                         </div>
                                         <hr>
@@ -117,7 +125,7 @@ include_once '../includes/connection.php';
                                         <div class="col-md-6">
                                             <div class="card mb-4 mb-md-0">
                                             <div class="card-body">
-                                                <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> Project Status
+                                                <p class="mb-4"><span class="text-primary font-italic me-1">Part 1: </span> How well does the teacher/instructor teach the subject?
                                                 </p>
                                                 <p class="mb-1" style="font-size: .77rem;">Web Design</p>
                                                 <div class="progress rounded" style="height: 5px;">
@@ -196,7 +204,7 @@ include_once '../includes/connection.php';
                                                 <tbody>
                                                     <?php
                                                         //include our connection
-                                                        $insid = $_POST["ins_id"];
+                                                        
                                                         $database = new Connection();
                                                         $db = $database->open();
                                                         try{	
