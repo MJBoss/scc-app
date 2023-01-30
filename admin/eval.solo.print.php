@@ -34,21 +34,28 @@ $p2 = $part2->fetch(PDO::FETCH_ASSOC);
 
   
 ?>
+
+
+<style>
+
+ul#accordionSidebar {
+    display: none !important;
+}
+
+nav.navbar.navbar-expand.navbar-light.bg-white.topbar.mb-4.static-top.shadow {
+    display: none !important;
+}
+
+.card.mb-4.mb-lg-0 {
+    display: none;
+}
+
+</style>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Grade Table</h1>
-
-                    <form action="eval.solo.print.php" method="post" style="margin: 0;">
-                    <input type="hidden" name="ins_id" value="<?php echo $insid ?>">
-                    <button type="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" name ="submit"><i class="fas fa-print fa-sm text-white-50"></i> Print </button>
-                    </form>
-                    
-                </div>
-
                     <!-- Page Heading -->
-                   
+                    <!-- <h1 class="h3 mb-4 text-gray-800">Result</h1> -->
                         <section style="background-color: #eee;">
                         <div class="container py-5">
                             <!-- <div class="row">
@@ -196,7 +203,7 @@ $p2 = $part2->fetch(PDO::FETCH_ASSOC);
 
                                     <!---->
 
-                                    <div class="card mb-4" style="margin-top: 1.5rem!important;margin-bottom: 0 !important;height: 300px;overflow: scroll;">
+                                    <div class="card mb-4" style="margin-top: 1.5rem!important;margin-bottom: 0 !important;height: auto;">
                                         <div class="card-body">
                                             <table class="table">
                                                 <thead>

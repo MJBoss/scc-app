@@ -39,7 +39,17 @@ if($filename[1] == 'csv'){
         $statement=$conn->prepare("SELECT * FROM tbl_instructor WHERE ins_name = '$instructor'");
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_ASSOC);
-        $ins_id = $result["ins_id"];
+
+        if(!empty($result)){
+          $ins_id = $result["ins_id"];
+
+        }else{
+
+            $ins_id = "";
+        }
+
+        
+        
 
       $q1 = mysqli_real_escape_string($connect, utf8_encode($data[3]));
       $q2 = mysqli_real_escape_string($connect, utf8_encode($data[4]));
