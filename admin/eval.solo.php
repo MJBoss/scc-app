@@ -70,23 +70,20 @@ $p2 = $part2->fetch(PDO::FETCH_ASSOC);
                                     <img src="../img/student.jpg" alt="avatar"
                                     class="rounded-circle img-fluid" style="width: 150px;">
                                     <h5 class="my-3"><?php echo $ins["ins_name"] ?></h5>
-                                    <p class="text-muted mb-1">Full Stack Developer</p>
-                                    <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+                                    <p class="text-muted mb-1">Instructor</p>
+                                    <p class="text-muted mb-4">College Department</p>
                                     <div class="d-flex justify-content-center mb-2">
-                                    <button type="button" class="btn btn-primary">Follow</button>
-                                    <button type="button" class="btn btn-outline-primary ms-1">Message</button>
+                                    <!-- <button type="button" class="btn btn-primary">Follow</button>
+                                    <button type="button" class="btn btn-outline-primary ms-1">Message</button> -->
                                     </div>
                                 </div>
                                 </div>
                                 <div class="card mb-4 mb-lg-0">
                                 <div class="card-body p-0">
                                     <ul class="list-group list-group-flush rounded-3">
+                                    
                                     <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                        <i class="fas fa-globe fa-lg text-warning"></i>
-                                        <p class="mb-0">https://mdbootstrap.com</p>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                        <i class="fab fa-github fa-lg" style="color: #333333;"></i>
+                                        <i class="fab fa-youtube fa-lg" style="color: red;"></i>
                                         <p class="mb-0">mdbootstrap</p>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center p-3">
@@ -167,7 +164,7 @@ $p2 = $part2->fetch(PDO::FETCH_ASSOC);
                                                 <div class="progress-bar" role="progressbar" style="width: <?php echo $p1["Average"] * 100 / 5?>%" aria-valuenow="0"
                                                     aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
-                                                <p class="mt-4 mb-1" style="font-size: 0.90rem;margin-top: 0.25rem!important;"><?php echo $p1["Average"] * 100 / 5?> / 100</p>
+                                                <p class="mt-4 mb-1" style="font-size: 0.90rem;margin-top: 0.25rem!important;"><?php echo $p1["Average"] * 100 / 5?> / 100 (Percentage)</p>
                                            
                                               
                                                
@@ -186,7 +183,7 @@ $p2 = $part2->fetch(PDO::FETCH_ASSOC);
                                                 <div class="progress-bar" role="progressbar" style="width: <?php echo $p1["Average"] * 100 / 5?>%" aria-valuenow="80"
                                                     aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
-                                                <p class="mt-4 mb-1" style="font-size: 0.90rem;margin-top: 0.25rem!important;"><?php echo $p2["Average"] * 100 / 5?> / 100</p>
+                                                <p class="mt-4 mb-1" style="font-size: 0.90rem;margin-top: 0.25rem!important;"><?php echo $p2["Average"] * 100 / 5?> / 100 (Percentage)</p>
                                                 
                                             </div>
                                             </div>

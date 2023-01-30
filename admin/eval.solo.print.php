@@ -54,10 +54,17 @@ nav.navbar.navbar-expand.navbar-light.bg-white.topbar.mb-4.static-top.shadow {
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
+                <div class="d-sm-flex align-items-center justify-content-between mb-4" style="margin-top: 29px;">
+                    <h1 class="h3 mb-0 text-gray-800">Evaluation Report</h1>
+                    <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onClick="window.print()"><i class="fas fa-print fa-sm text-white-50"></i> Print </button>
+                </div>
+
                     <!-- Page Heading -->
                     <!-- <h1 class="h3 mb-4 text-gray-800">Result</h1> -->
                         <section style="background-color: #eee;">
                         <div class="container py-5">
+
+                        
                             <!-- <div class="row">
                             <div class="col">
                                 <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
@@ -77,11 +84,11 @@ nav.navbar.navbar-expand.navbar-light.bg-white.topbar.mb-4.static-top.shadow {
                                     <img src="../img/student.jpg" alt="avatar"
                                     class="rounded-circle img-fluid" style="width: 150px;">
                                     <h5 class="my-3"><?php echo $ins["ins_name"] ?></h5>
-                                    <p class="text-muted mb-1">Full Stack Developer</p>
-                                    <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+                                    <p class="text-muted mb-1">Instructor</p>
+                                    <p class="text-muted mb-4">College Derpatment</p>
                                     <div class="d-flex justify-content-center mb-2">
-                                    <button type="button" class="btn btn-primary">Follow</button>
-                                    <button type="button" class="btn btn-outline-primary ms-1">Message</button>
+                                    <!-- <button type="button" class="btn btn-primary">Follow</button>
+                                    <button type="button" class="btn btn-outline-primary ms-1">Message</button> -->
                                     </div>
                                 </div>
                                 </div>
@@ -93,7 +100,7 @@ nav.navbar.navbar-expand.navbar-light.bg-white.topbar.mb-4.static-top.shadow {
                                         <p class="mb-0">https://mdbootstrap.com</p>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                        <i class="fab fa-github fa-lg" style="color: #333333;"></i>
+                                        <i class="fab fa-youtube fa-lg" style="color: #333333;"></i>
                                         <p class="mb-0">mdbootstrap</p>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center p-3">
@@ -222,7 +229,7 @@ nav.navbar.navbar-expand.navbar-light.bg-white.topbar.mb-4.static-top.shadow {
                                                             foreach ($db->query($sql) as $row) {
                                                                 ?>
                                                                 <tr>
-                                                                    <td><?php echo $row["eval_comments"]?></td>
+                                                                    <td style="padding: 0 !important"><ul style="margin: 0 !important"><li><?php echo $row["eval_comments"]?></li></ul></td>
                                                                 </tr>
                                                                 <?php 
                                                             }
