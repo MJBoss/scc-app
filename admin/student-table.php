@@ -2,8 +2,6 @@
 include_once '../templates/header.php';
 include_once '../includes/connect.php';
 include_once '../includes/connection.php';
-
-
 ?>
 
                 <!-- Begin Page Content -->
@@ -11,8 +9,8 @@ include_once '../includes/connection.php';
 
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Grade Table</h1>
-                        <a href="../upload/upload.evaluation.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-upload fa-sm text-white-50"></i> Upload Evaluation Data</a>
+                        <a href="../upload/upload.student.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa-download fa-sm text-white-50"></i> Upload Data</a>
                     </div>
 
                     <!-- Page Heading -->
@@ -31,17 +29,19 @@ include_once '../includes/connection.php';
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                        <th>Student Id</th>
                                         <th>Name</th>
-                                        <th>Department</th>
-                                        <th>Status</th>
+                                        <th>Gender</th>
+                                        <th>Year Level</th>
                                         <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                        <th>Student Id</th>
                                         <th>Name</th>
-                                        <th>Department</th>
-                                        <th>Status</th>
+                                        <th>Gender</th>
+                                        <th>Year Level</th>
                                         <th>Action</th>
                                         </tr>
                                     </tfoot>
@@ -52,20 +52,19 @@ include_once '../includes/connection.php';
                                         $database = new Connection();
                                         $db = $database->open();
                                         try{	
-                                            $sql = 'SELECT * FROM tbl_instructor ORDER BY ins_name ASC';
+                                            $sql = 'SELECT * FROM tbl_students
+                                                    INNER JOIN tbl_yr
+                                                    ON tbl_students.yr_id = tbl_yr.yr_id';
                                             foreach ($db->query($sql) as $row) {
                                                 ?>
                                                 <tr>
-                                                    <td><?php echo $row["ins_name"]?></td>
-                                                    <td><?php echo $row["ins_dept"]?></td>
-                                                    <td><?php echo $row["ins_status"]?></td>
+                                                    <td><?php echo $row["s_id"]?></td>
+                                                    <td><?php echo $row["s_name"]?></td>
+                                                    <td><?php echo $row["s_gender"]?></td>
+                                                    <td><?php echo $row["yr_desc"]?></td>
                                                     <td>
-                                                    <form action="eval.solo.php" method="post" style="margin: 0;">
-                                                        <input type="hidden" name="ins_id" value="<?php echo $row['ins_id']; ?>">
-                                                        <button type="submit" class="btn btn-success btn-sm" name ="submit">View Evaluation </button>
-                                                        </form>
-                                                        <!-- <a href="#edit_< ?php echo $row['s_id']; ?>" class="btn btn-success btn-sm" data-toggle="modal"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-                                                        <a href="#delete_< ?php echo $row['s_id']; ?>" class="btn btn-danger btn-sm" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span> Delete</a> -->
+                                                        <a href="#edit_<?php echo $row['s_id']; ?>" class="btn btn-success btn-sm" data-toggle="modal"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                                                        <a href="#delete_<?php echo $row['s_id']; ?>" class="btn btn-danger btn-sm" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span> Delete</a>
                                                     </td>
                                                     <!-- < ?php include('../modals/user_edit_delete_modal.php'); ?> -->
                                                 </tr>

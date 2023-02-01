@@ -1,9 +1,40 @@
 <?php
+
+// if(!isset($_POST['ins_id']) && !empty($_POST['ins_id'])) {
+//     header("location:instructor-table.php?error=nofile");
+//     exit();
+//   }else{
+//     $insid = $_POST['ins_id'];
+//   }
+
+
+
+
+session_start();
+
+
+$_SESSION['instructor'] = $_POST["ins_id"];
+
+var_dump($_SESSION);
+
+  if(isset($_SESSION['instructor']) && !empty($_SESSION['instructor'])) {
+    $insid = $_SESSION['instructor'];
+  }else{
+    header("location:instructor-table.php?error=nofile");
+  }
+  
+  
+
+
+  
+?>
+
+
+<?php
+
 include_once '../templates/header.php';
 include_once "../includes/connect.php";
 include_once '../includes/connection.php';
-
-$insid = $_POST["ins_id"];
 
 
 
@@ -32,13 +63,12 @@ $part2->bindParam(':insid', $insid);
 $part2->execute();
 $p2 = $part2->fetch(PDO::FETCH_ASSOC);
 
-  
 ?>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Grade Table</h1>
+                    <h1 class="h3 mb-0 text-gray-800">Evaluation Report</h1>
 
                     <form action="eval.solo.print.php" method="post" style="margin: 0;">
                     <input type="hidden" name="ins_id" value="<?php echo $insid ?>">
@@ -160,7 +190,7 @@ $p2 = $part2->fetch(PDO::FETCH_ASSOC);
                                                 </p>
                                                 <hr/>
                                                 <p class="mb-1" style="font-size: 2.77rem;"><?php echo $p1["Average"] ?></p>
-                                                <div class="progress rounded" style="height: 5px;">
+                                                <div class="progress rounded" style="height: 10px;">
                                                 <div class="progress-bar" role="progressbar" style="width: <?php echo $p1["Average"] * 100 / 5?>%" aria-valuenow="0"
                                                     aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
@@ -179,7 +209,7 @@ $p2 = $part2->fetch(PDO::FETCH_ASSOC);
                                                 </p>
                                                 <hr/>
                                                 <p class="mb-1" style="font-size: 2.77rem;"><?php echo $p2["Average"] ?></p>
-                                                <div class="progress rounded" style="height: 5px;">
+                                                <div class="progress rounded" style="height: 10px;">
                                                 <div class="progress-bar" role="progressbar" style="width: <?php echo $p1["Average"] * 100 / 5?>%" aria-valuenow="80"
                                                     aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>

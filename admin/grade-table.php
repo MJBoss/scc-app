@@ -32,6 +32,7 @@ include_once '../includes/connection.php';
                                         <th>Student Id</th>
                                         <th>Name</th>
                                         <th>Subject</th>
+                                        <th>Level</th>
                                         <th>Prelim</th>
                                         <th>Midterm</th>
                                         <th>Prefinal</th>
@@ -44,6 +45,7 @@ include_once '../includes/connection.php';
                                         <th>Student Id</th>
                                         <th>Name</th>
                                         <th>Subject</th>
+                                        <th>Level</th>
                                         <th>Prelim</th>
                                         <th>Midterm</th>
                                         <th>Prefinal</th>
@@ -64,7 +66,9 @@ include_once '../includes/connection.php';
                                             INNER JOIN tbl_students
                                             ON tbl_grades.s_id=tbl_students.s_id
                                             INNER JOIN tbl_subject
-                                            ON tbl_grades.sbj_id=tbl_subject.sbj_id 
+                                            ON tbl_grades.sbj_id=tbl_subject.sbj_id
+                                            INNER JOIN tbl_yr
+                                            ON tbl_students.yr_id=tbl_yr.yr_id
                                             ORDER BY tbl_students.s_name ASC';
                                             foreach ($db->query($sql) as $row) {
                                                 ?>
@@ -72,6 +76,7 @@ include_once '../includes/connection.php';
                                                     <td><?php echo $row["s_id"]?></td>
                                                     <td><?php echo $row["s_name"]?></td>
                                                     <td><?php echo $row["sbj_code"]?></td>
+                                                    <td><?php echo $row["yr_desc"]?></td>
                                                     <td><?php echo $row["prelim"]?></td>
                                                     <td><?php echo $row["midterm"] ?></td>
                                                     <td><?php echo $row["prefinal"] ?></td>

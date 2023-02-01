@@ -1,10 +1,39 @@
 <?php
+
+// if(!isset($_POST['ins_id']) && !empty($_POST['ins_id'])) {
+//     header("location:instructor-table.php?error=nofile");
+//     exit();
+//   }else{
+//     $insid = $_POST['ins_id'];
+//   }
+
+
+
+
+session_start();
+
+
+$_SESSION['instructor'] = $_POST["ins_id"];
+
+var_dump($_SESSION);
+
+  if(isset($_SESSION['instructor']) && !empty($_SESSION['instructor'])) {
+    $insid = $_SESSION['instructor'];
+  }else{
+    header("location:instructor-table.php?error=nofile");
+  }
+  
+  
+
+
+  
+?>
+
+
+<?php
 include_once '../templates/header.php';
 include_once "../includes/connect.php";
 include_once '../includes/connection.php';
-
-$insid = $_POST["ins_id"];
-
 
 
 $statement=$conn->prepare("SELECT * FROM tbl_instructor WHERE ins_id = :insid");

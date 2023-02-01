@@ -96,12 +96,13 @@ if($filename[1] == 'csv'){
       // $statement->execute();
       // $result = $statement->fetch(PDO::FETCH_ASSOC);
 
+
+
     
         $query = "INSERT INTO tbl_evaluation (yr_id, sem_id, ins_id, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, b17, b18, b19, b20, b21, b22, b23, b24, b25, b26, b27, b28, b29, b30, eval_email, eval_comments, eval_name, eval_course, eval_date) 
         VALUES('$syids', '$semids', '$ins_id','$q1','$q2','$q3','$q4','$q5','$q6','$q7','$q8','$q9','$q10','$q11','$q12','$q13','$q14','$q15','$q16','$q17','$q18','$q19','$q20','$q21','$q22','$q23','$q24','$q25','$q26','$q27','$q28','$q29','$q30', '$email', '$comments', '$name', '$course', '$time')";
         
-    
-
+  
       // if(!empty($result)){
       //   $query = "UPDATE tbl_grades SET prelim = '$item5', midterm = '$item6', prefinal = '$item7', final = '$item8' WHERE s_id = '$item1' AND sbj_id = '$item2'";
       // }else{

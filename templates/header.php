@@ -1,16 +1,7 @@
-<?php
-
-session_start();
-// var_dump($_SESSION);
-//    var_dump($_POST);
-
-?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -122,7 +113,7 @@ session_start();
                         <a class="collapse-item" href="../admin/blank.php">Blank</a>
                         <a class="collapse-item" href="../admin/grade-table.php">Grades</a>
                         <a class="collapse-item" href="../admin/instructor-table.php">Instructor</a>
-                        <a class="collapse-item" href="../admin/evaluation-table.php">Evaluation</a>
+                        <a class="collapse-item" href="../admin/student-table.php">Student</a>
                         <a class="collapse-item" href="register.html">Register</a>
                         <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
                         <div class="collapse-divider"></div>
