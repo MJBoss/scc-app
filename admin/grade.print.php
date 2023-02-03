@@ -4,14 +4,23 @@
 session_start();
 
 
-$_SESSION['instructor'] = $_POST["ins_id"];
+$_SESSION['syear'] = $_POST["sy"];
+$_SESSION['section'] = $_POST["sec"];
+$_SESSION['yearlvl'] = $_POST["year"];
+$_SESSION['course'] = $_POST["subject"];
+
 
 // var_dump($_SESSION);
 
-  if(isset($_SESSION['instructor']) && !empty($_SESSION['instructor'])) {
-    $insid = $_SESSION['instructor'];
+  if(isset($_SESSION['syear']) && !empty($_SESSION['syear'])) {
+    $scyear = $_SESSION['syear'];
+    $yearlvl = $_SESSION['yearlvl'];
+    $section = $_SESSION['section'];
+    $scyear = $_SESSION['syear'];
+    $course = $_SESSION['course'];
+
   }else{
-    header("location:instructor-table.php?error=nofile");
+    header("location:grade-table.php?error=nofiles");
   }
   
   
@@ -27,32 +36,29 @@ include_once "../includes/connect.php";
 include_once '../includes/connection.php';
 
 
-$statement=$conn->prepare("SELECT * FROM tbl_instructor WHERE ins_id = :insid");
-$statement->bindParam(':insid', $insid);
-$statement->execute();
-$ins = $statement->fetch(PDO::FETCH_ASSOC);
 
-$count=$conn->prepare("SELECT COUNT(*) AS Count FROM tbl_evaluation WHERE ins_id = :insid");
-$count->bindParam(':insid', $insid);
+
+
+$statement=$conn->prepare("SELECT * FROM `tbl_grades`
+                           INNER JOIN `tbl_subject`
+                           ON `tbl_grades`.`sbj_id` = `tbl_subject`.`sbj_id`
+                           INNER JOIN `tbl_section`
+                           ON tbl_grades.sec_id = tbl_section.sec_id
+                           WHERE `tbl_grades`.`sbj_id` = :sbjid AND tbl_grades.sec_id = :secid");
+$statement->bindParam(':sbjid', $course);
+$statement->bindParam(':secid', $section);
+$statement->execute();
+$sbj_info = $statement->fetch(PDO::FETCH_ASSOC);
+
+$count=$conn->prepare("SELECT COUNT(*) AS Count, ROUND(AVG(final), 2) AS Average FROM tbl_grades WHERE sbj_id = :sbjid AND yr_id = :yrid AND sec_id = :secid");
+$count->bindParam(':sbjid', $course);
+$count->bindParam(':yrid', $yearlvl);
+$count->bindParam(':secid', $section);
 $count->execute();
 $counts = $count->fetch(PDO::FETCH_ASSOC);
 
-$ttl=$conn->prepare("SELECT ROUND(AVG(a1+a2+a3+a4+a5+a6+a7+a8+a9+a10+a11+a12+a13+a14+a15+a16+b17+b18+b19+b20+b21+b22+b23+b24+b25+b26+b27+b28+b29+b30)/30.0, 2) AS Average FROM tbl_evaluation WHERE ins_id = :insid");
-$ttl->bindParam(':insid', $insid);
-$ttl->execute();
-$total = $ttl->fetch(PDO::FETCH_ASSOC);
 
-$part1=$conn->prepare("SELECT ROUND(AVG(a1+a2+a3+a4+a5+a6+a7+a8+a9+a10+a11+a12+a13+a14+a15+a16)/16.0, 2) AS Average FROM tbl_evaluation WHERE ins_id = :insid");
-$part1->bindParam(':insid', $insid);
-$part1->execute();
-$p1 = $part1->fetch(PDO::FETCH_ASSOC);
 
-$part2=$conn->prepare("SELECT ROUND(AVG(b17+b18+b19+b20+b21+b22+b23+b24+b25+b26+b27+b28+b29+b30)/14.0, 2) AS Average FROM tbl_evaluation WHERE ins_id = :insid");
-$part2->bindParam(':insid', $insid);
-$part2->execute();
-$p2 = $part2->fetch(PDO::FETCH_ASSOC);
-
-  
 ?>
 
 
@@ -70,18 +76,30 @@ nav.navbar.navbar-expand.navbar-light.bg-white.topbar.mb-4.static-top.shadow {
     display: none;
 }
 
+@media print {
+  #printPageButton {
+    display: none;
+  }
+}
+hr {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    border: 0;
+    border-top: 1px solid rgba(0,0,0,.1);
+}
+
 </style>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                <div class="d-sm-flex align-items-center justify-content-between mb-4" style="margin-top: 29px;">
-                    <h1 class="h3 mb-0 text-gray-800">Evaluation Report</h1>
-                    <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onClick="window.print()"><i class="fas fa-print fa-sm text-white-50"></i> Print </button>
-                </div>
 
                     <!-- Page Heading -->
                     <!-- <h1 class="h3 mb-4 text-gray-800">Result</h1> -->
                         <section style="background-color: #eee;">
+                        <a href="../print/print-filter.grade.php"><button id="printPageButton" style="background-color: #4e73df; width: 30px; margin: 10px 0 0 10px;"><i class="fas fa-angle-left fa-sm text-white-50"></i> </button></a>
+                        <button id="printPageButton" style="background-color: #4e73df; float: right; margin: 10px 10px 0 0;" onClick="window.print()"><i class="fas fa-print fa-sm text-white-50"></i> </button>
+                    
+
                         <div class="container py-5">
 
                         
@@ -98,177 +116,137 @@ nav.navbar.navbar-expand.navbar-light.bg-white.topbar.mb-4.static-top.shadow {
                             </div> -->
 
                             <div class="row">
-                            <div class="col-lg-4">
+                                <div class="col-lg-12">
+                                    <!-- <div class="card mb-4">
+                                        <div class="card-body text-center">
+                                            <img src="../img/ITDEPTLOGO.png" alt="avatar"
+                                            class="rounded-circle img-fluid" style="width: 150px;">
+                                            <p class="text-muted mb-0" style="text-align: center;"><span class="text-primary font-italic me-1" style="font-size: 28px;">St. Cecilia's College-Cebu, Inc.</span></p>
+                                            <h5 class="my-3">Bachelor of Science in Information Technology</h5>
+                                            <p class="text-muted mb-1">SECTION <?php echo $sbj_info["sec_desc"]?></p>
+                                        </div>
+                                    </div> -->
+                                    
+                                    <!-- <p class="text-muted mb-1" style="text-align: center;">Bachelor of Science in Information Technology <?php echo $sbj_info["sec_desc"]?></p> -->
+                                </div>
+                                <div class="col-lg-12">
                                 <div class="card mb-4">
-                                <div class="card-body text-center">
-                                    <img src="../img/student.jpg" alt="avatar"
-                                    class="rounded-circle img-fluid" style="width: 150px;">
-                                    <h5 class="my-3"><?php echo $ins["ins_name"] ?></h5>
-                                    <p class="text-muted mb-1">Instructor</p>
-                                    <p class="text-muted mb-4">College Derpatment</p>
-                                    <div class="d-flex justify-content-center mb-2">
-                                    <!-- <button type="button" class="btn btn-primary">Follow</button>
-                                    <button type="button" class="btn btn-outline-primary ms-1">Message</button> -->
-                                    </div>
-                                </div>
-                                </div>
-                                <div class="card mb-4 mb-lg-0">
-                                <div class="card-body p-0">
-                                    <ul class="list-group list-group-flush rounded-3">
-                                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                        <i class="fas fa-globe fa-lg text-warning"></i>
-                                        <p class="mb-0">https://mdbootstrap.com</p>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                        <i class="fab fa-youtube fa-lg" style="color: #333333;"></i>
-                                        <p class="mb-0">mdbootstrap</p>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                        <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
-                                        <p class="mb-0">@mdbootstrap</p>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                        <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
-                                        <p class="mb-0">mdbootstrap</p>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                        <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
-                                        <p class="mb-0">mdbootstrap</p>
-                                    </li>
-                                    </ul>
-                                </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-8">
-                                <div class="card mb-4">
-                                    <div class="card-body">
-                                        <hr>
-                                        <div class="row">
-                                        <div class="col-sm-5">
-                                            <p class="mb-0">Full Name</p>
-                                        </div>
-                                        <div class="col-sm-7">
-                                            <p class="text-muted mb-0"><?php echo $ins["ins_name"] ?></p>
-                                        </div>
-                                        </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-sm-5">
-                                                <p class="mb-0">Total Result:</p>
-                                            </div>
-                                            <div class="col-sm-7">
-                                                <p class="text-muted mb-0"  style="font-size: 40px;"><?php echo $total["Average"]?><span class="text-primary font-italic me-1" style="font-size: 28px;"> / 5 </span></p>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-sm-5">
-                                                <p class="mb-0">Number of Responses</p>
-                                            </div>
-                                            <div class="col-sm-7">
-                                                <p class="text-muted mb-0"><span class="text-primary font-italic me-1" style="font-size: 28px;"><?php echo $counts["Count"]?></span></p>
-                                            </div>
-                                        </div>
-                                        <!-- <hr>
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <p class="mb-0">Mobile</p>
-                                            </div>
-                                            <div class="col-sm-9">
-                                                <p class="text-muted mb-0">(098) 765-4321</p>
-                                            </div>
-                                        </div>
-                                        <hr> -->
-                                        <!-- <div class="row">
-                                            <div class="col-sm-3">
-                                                <p class="mb-0">Address</p>
-                                            </div>
-                                            <div class="col-sm-9">
-                                                <p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
-                                            </div>
-                                        </div> -->
-                                    </div>
-                                </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="card mb-4 mb-md-0">
-                                            <div class="card-body">
-                                                <p class="mb-4" style="height: 125px !important;"><span class="text-primary font-italic me-1">Part 1: </span> How well does the teacher/instructor teach the subject?
-                                                </p>
-                                                <hr/>
-                                                <p class="mb-1" style="font-size: 2.77rem;"><?php echo $p1["Average"] ?></p>
-                                                <div class="progress rounded" style="height: 5px;">
-                                                <div class="progress-bar" role="progressbar" style="width: <?php echo $p1["Average"] * 100 / 5?>%" aria-valuenow="0"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                                <p class="mt-4 mb-1" style="font-size: 0.90rem;margin-top: 0.25rem!important;"><?php echo $p1["Average"] * 100 / 5?> / 100 (Percentage)</p>
-                                           
-                                              
-                                               
-                                                
-                                            </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="card mb-4 mb-md-0">
-                                            <div class="card-body">
-                                                <p class="mb-4" style="height: 125px !important;"><span class="text-primary font-italic me-1">Part 2: </span> How well does this teacher/instructor model the core values through how he/she behave with students and with other people?
-                                                </p>
-                                                <hr/>
-                                                <p class="mb-1" style="font-size: 2.77rem;"><?php echo $p2["Average"] ?></p>
-                                                <div class="progress rounded" style="height: 5px;">
-                                                <div class="progress-bar" role="progressbar" style="width: <?php echo $p1["Average"] * 100 / 5?>%" aria-valuenow="80"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                                <p class="mt-4 mb-1" style="font-size: 0.90rem;margin-top: 0.25rem!important;"><?php echo $p2["Average"] * 100 / 5?> / 100 (Percentage)</p>
-                                                
-                                            </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <!---->
-
-                                    <div class="card mb-4" style="margin-top: 1.5rem!important;margin-bottom: 0 !important;height: auto;">
                                         <div class="card-body">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                    <th scope="col">Comments</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                        //include our connection
-                                                        
-                                                        $database = new Connection();
-                                                        $db = $database->open();
-                                                        try{	
-                                                            $sql = "SELECT * FROM tbl_evaluation WHERE ins_id = '$insid'";
-                                                            foreach ($db->query($sql) as $row) {
-                                                                ?>
-                                                                <tr>
-                                                                    <td style="padding: 0 !important"><ul style="margin: 0 !important"><li><?php echo $row["eval_comments"]?></li></ul></td>
-                                                                </tr>
-                                                                <?php 
-                                                            }
-                                                        }
-                                                        catch(PDOException $e){
-                                                            echo "There is some problem in connection: " . $e->getMessage();
-                                                        }
-
-                                                        //close connection
-                                                        $database->close();
-
-                                                    ?>
-                                   
-
-                                                </tbody>
-                                            </table>
+                                            <div class="row">
+                                                <div class="col-sm-3" style="text-align: center;">
+                                                <img src="../img/SCCLOGO.png" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                                                </div>
+                                                <div class="col-sm-6" style="padding: 12px 0 0 0;">
+                                                    <p class="text-muted mb-0" style="text-align: center;"><span class="text-primary font-italic me-1" style="font-size: 30px;">St. Cecilia's College-Cebu, Inc.</span></p>
+                                                    <h4 class="my-3" style="text-align: center;margin-top: -4px !important;">LASSO SUPERVISED SCHOOL</h4>
+                                                    <h6 class="my-3" style="text-align: center;margin-top: -14px !important;">Poblacion Ward II, Minglanilla, Cebu</h6> 
+                                                    <h5 class="my-3" style="text-align: center;">BACHELOR OF SCIENCE IN <br/>INFORMATION TECHNOLOGY</h5>
+                                                </div>
+                                                <div class="col-sm-3" style="text-align: center;">
+                                                <img src="../img/ITDEPTLOGO.png" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                                                </div>
+                                            </div>
                                         </div>
+                                    </div>
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <p class="mb-0">Description:</p>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <p class="text-muted mb-0"  style="font-size: 35px;"><span class="text-primary font-italic me-1" style="font-size: 28px;"><?php echo $sbj_info["sbj_desc"] ?></span></p>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                            <div class="col-sm-4">
+                                                    <p class="mb-0">Code:</p>
+                                                </div>
+                                            
+                                            <div class="col-sm-8">
+                                                <p class="text-muted mb-0"><span class="text-primary font-italic me-1" style="font-size: 18px;"><?php echo $sbj_info["sbj_code"] ?></span></p>
+                                            </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <p class="mb-0">Number of Students:</p>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <p class="text-muted mb-0"><span class="text-primary font-italic me-1" style="font-size: 18px;"><?php echo $counts["Count"]?></span></p>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <p class="mb-0">Instructor</p>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <p class="text-muted mb-0"><span class="text-primary font-italic me-1" style="font-size: 18px;">Michael John Bustamante</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        
+
+
+                                        <!---->
+
+                                        <div class="card mb-4" style="margin-top: 1.5rem!important;margin-bottom: 0 !important;height: auto;">
+                                            <div class="card-body">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                        <th scope="col">Name</th>
+                                                        <th scope="col">Prelim</th>
+                                                        <th scope="col">Midterm</th>
+                                                        <th scope="col">Prefinal</th>
+                                                        <th scope="col">Final</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                            //include our connection
+                                                            
+                                                            $database = new Connection();
+                                                            $db = $database->open();
+                                                            try{	
+                                                                $sql = "SELECT * FROM `tbl_grades`
+                                                                        INNER JOIN `tbl_students`
+                                                                        ON `tbl_grades`.`s_id` = `tbl_students`.`s_id`
+                                                                        WHERE `tbl_grades`.`sbj_id` = '$course' 
+                                                                        AND `tbl_grades`.`yr_id` = '$yearlvl' 
+                                                                        AND `tbl_grades`.`sec_id` = '$section'
+                                                                        ORDER BY `tbl_students`.s_name ASC";
+                                                                foreach ($db->query($sql) as $row) {
+                                                                    ?>
+                                                                    <tr>
+                                                                        <td style="padding: 5px 0 5px 15px !important"><?php echo $row["s_name"]?></td>
+                                                                        <td style="padding: 5px 0 5px 15px !important"><?php if($row["prelim"] == "INC"){ echo "<span style='color: red;font-weight:900;'>INC</span>";}else{echo $row["prelim"];} ?></td>
+                                                                        <td style="padding: 5px 0 5px 15px !important"><?php if($row["midterm"] == "INC"){ echo "<span style='color: red;font-weight:900;'>INC</span>";}else{echo $row["midterm"];} ?></td>
+                                                                        <td style="padding: 5px 0 5px 15px !important"><?php if($row["prefinal"] == "INC"){ echo "<span style='color: red;font-weight:900;'>INC</span>";}else{echo $row["prefinal"];} ?></td>
+                                                                        <td style="padding: 5px 0 5px 15px !important"><?php if($row["final"] == "INC"){ echo "<span style='color: red;font-weight:900;'>INC</span>";}else{echo $row["final"];} ?></td>
+                                                                        
+                                                                    </tr>
+                                                                    <?php 
+                                                                }
+                                                            }
+                                                            catch(PDOException $e){
+                                                                echo "There is some problem in connection: " . $e->getMessage();
+                                                            }
+
+                                                            //close connection
+                                                            $database->close();
+
+                                                        ?>
+                                    
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                    </div>
                                 </div>
-                            </div>
                             </div>
                         </div>
                         </section>

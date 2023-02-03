@@ -64,8 +64,10 @@ include_once '../includes/connection.php';
                                                     <td><?php echo $row["yr_desc"]?></td>
                                                     <td>
                                                         <a href="#edit_<?php echo $row['s_id']; ?>" class="btn btn-success btn-sm" data-toggle="modal"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-                                                        <a href="#delete_<?php echo $row['s_id']; ?>" class="btn btn-danger btn-sm" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+                                                        <!-- <a href="#edit_< ?php echo $row['s_id']; ?>" class="btn btn-success btn-sm" data-toggle="modal" data-target="#editStudentModal"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                                                        <a href="#delete_< ?php echo $row['s_id']; ?>" class="btn btn-danger btn-sm" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span> Delete</a> -->
                                                     </td>
+                                                    <?php include('../modals/edit-student.modal.php'); ?>
                                                     <!-- < ?php include('../modals/user_edit_delete_modal.php'); ?> -->
                                                 </tr>
                                                 <?php 
@@ -87,8 +89,9 @@ include_once '../includes/connection.php';
                     </div>
 
                 </div>
-                <!-- /.container-fluid -->
+                <!-- /.container-fluid -->s
 
 <?php
+include_once("../modals/edit-student.modal.php");
 include_once '../templates/footer.php';
 ?>

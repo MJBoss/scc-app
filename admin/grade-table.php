@@ -8,16 +8,16 @@ include_once '../includes/connection.php';
                 <div class="container-fluid">
 
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Grade Table</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Upload Data</a>
+                        <h1 class="h3 mb-0 text-gray-800">Grades</h1>
+                        <a href="../print/print-filter.grade.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-print fa-sm text-white-50"></i> Print Grades</a>
+                        <a href="../upload/upload.grade.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Upload Grade</a>
                     </div>
 
                     <!-- Page Heading -->
                 
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+                    <!-- <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
                         For more information about DataTables, please visit the <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p>
+                            href="https://datatables.net">official DataTables documentation</a>.</p> -->
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">

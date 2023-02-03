@@ -47,9 +47,8 @@ if($filename[1] == 'csv'){
 
             $ins_id = "";
         }
-
         
-        
+      
 
       $q1 = mysqli_real_escape_string($connect, utf8_encode($data[3]));
       $q2 = mysqli_real_escape_string($connect, utf8_encode($data[4]));
@@ -86,79 +85,32 @@ if($filename[1] == 'csv'){
       $name = mysqli_real_escape_string($connect, utf8_encode($data[34]));
       $course = mysqli_real_escape_string($connect, utf8_encode($data[35]));
 
-      // $item5 = password_hash(mysqli_real_escape_string($connect, utf8_encode($data[4])), PASSWORD_DEFAULT);
 
+      $stmt_eval=$conn->prepare("SELECT * FROM tbl_evaluation WHERE eval_date = '$time' AND eval_email = '$email' AND eval_name = '$name'");
+      $stmt_eval->execute();
+      $eval_rst = $stmt_eval->fetch(PDO::FETCH_ASSOC);
+      
 
-
-      // // $statement=$conn->prepare("SELECT * FROM tbl_students LEFT JOIN tbl_grades ON tbl_students.s_id=tbl_grades.s_id WHERE tbl_students.s_id = :stid");
-      // $statement=$conn->prepare("SELECT s_id, sbj_id FROM tbl_grades WHERE s_id = '$item1' AND sbj_id = '$item2'");
-      // // $statement->bindParam(':stid', $sid);
-      // $statement->execute();
-      // $result = $statement->fetch(PDO::FETCH_ASSOC);
-
-
-
-    
+      if(!empty($eval_rst)){
+        $eval_id = $eval_rst["eval_id"];
+        $query = "UPDATE tbl_evaluation SET yr_id='$syids', sem_id='$semids', ins_id='$ins_id', a1='$q1', a2='$q2', a3='$q3', a4='$q4', a5='$q5', a6='$q6', a7='$q7', a8='$q8', a9='$q9', a10='$q10', a11='$q11', a12='$q12', a13='$q13', a14='$q14', a15='$q15', a16='$q16', b17='$q17', b18='$q18', b19='$q19', b20='$q20', b21='$q21', b22='$q22', b23='$q23', b24='$q24', b25='$q25', b26='$q26', b27='$q27', b28='$q28', b29='$q29', b30='$q30', eval_email='$email', eval_comments='$comments', eval_name='$name', eval_course='$course', eval_date='$time' WHERE eval_id='$eval_id'";
+      }else{
         $query = "INSERT INTO tbl_evaluation (yr_id, sem_id, ins_id, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, b17, b18, b19, b20, b21, b22, b23, b24, b25, b26, b27, b28, b29, b30, eval_email, eval_comments, eval_name, eval_course, eval_date) 
         VALUES('$syids', '$semids', '$ins_id','$q1','$q2','$q3','$q4','$q5','$q6','$q7','$q8','$q9','$q10','$q11','$q12','$q13','$q14','$q15','$q16','$q17','$q18','$q19','$q20','$q21','$q22','$q23','$q24','$q25','$q26','$q27','$q28','$q29','$q30', '$email', '$comments', '$name', '$course', '$time')";
-        
-  
-      // if(!empty($result)){
-      //   $query = "UPDATE tbl_grades SET prelim = '$item5', midterm = '$item6', prefinal = '$item7', final = '$item8' WHERE s_id = '$item1' AND sbj_id = '$item2'";
-      // }else{
-      //   $query = "INSERT into tbl_evaluation (yr_id, sem_id, ins_id, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, b17, b18, b19, b20, b21, b22, b23, b24, b25, b26, b27, b28, b29, b30, eval_email, eval_comments, eval_name, eval course, eval_date) 
-      //   values('$syids', '$semids', '$ins_id','$q1','$q2','$q3','$q4','$q5','$q6','$q7','$q8','$q9','$q10','$q11','$q12','$q13','$q14','$q15','$q16','$q17','$q18','$q19','$q20','$q21','$q22','$q23','$q24','$q25','$q26','$q27','$q28','$q29','$q30', '$email', '$comments', '$name', '$course', '$time')";
-        
-      // }
-
-
-
-      // $query = "INSERT into tbl_grades (s_id, sbj_id, sy_id, sem_id, prelim, midterm, prefinal,final) 
-      // values('$item1', '$item2', '$item3','$item4','$item5','$item6','$item7','$item8')";
-
+      }
       mysqli_query($connect, $query);
 }
 
 }
 
 fclose($handle);
-header("location:../../upload/upload.evaluation.php?error=Uploaded");
+header("location:../instructor-table.php?error=Uploaded");
      exit;
 
 }
 
-
-    // $filename=$_FILES["file"]["tmp_name"];    
-    //  if($_FILES["file"]["size"] > 0)
-    //  {
-    //     $file = fopen($filename, "r");
-    //       while (($getData = fgetcsv($file, 10000, ",")) !== FALSE)
-    //        {
-    //          $sql = "INSERT INTO tbl_user (user_id,firstName,lastName,email,password) 
-    //                VALUES ('".$getData[0]."','".$getData[1]."','".$getData[2]."','".$getData[3]."','".$getData[4]."')
-    //                ON DUPLICATE KEY UPDATE 
-    //                    firstName='".$getData[1]."', lastName='".$getData[2]."', email='".$getData[3]."', password='".$getData[4]."'";
-    //                $result = mysqli_query($connect, $sql);
-    //     if(!isset($result))
-    //     {
-    //       echo "<script type=\"text/javascript\">
-    //           alert(\"Invalid File:Please Upload CSV File.\");
-    //           window.location = \"upload.php\"
-    //           </script>";    
-    //     }
-    //     else {
-    //         echo "<script type=\"text/javascript\">
-    //         alert(\"CSV File has been successfully Imported.\");
-    //         window.location = \"upload.php\"
-    //       </script>";
-    //     }
-    //        }
-      
-    //        fclose($file);  
-    //  }
-    }
+  }
   } 
-
 
  ?>
 
