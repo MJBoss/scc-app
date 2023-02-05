@@ -4,8 +4,12 @@ include_once '../templates/header.php';
     <!-- Begin Page Content -->
     <div class="container-fluid">
 
+        
         <!-- Page Heading -->
         <h1 class="h3 mb-4 text-gray-800">Upload Grade</h1>
+
+        
+
 
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -17,6 +21,10 @@ include_once '../templates/header.php';
                         <form action="../admin/functions/grade.functions.php" method="post" name="file" enctype="multipart/form-data">
 
                             <div class="modal-body">
+
+
+
+
 
 
                                 <?php
@@ -59,7 +67,7 @@ include_once '../templates/header.php';
                                     $sql="SELECT * FROM tbl_instructor WHERE ins_id = '200'"; 
                                     echo "<label for='exampleFormControlInput1' class='form-label'>Instructor</label>";
                                     /* You can add order by clause to the sql statement if the names are to be displayed in alphabetical order */
-                                    echo "<select name=ins value='' class='form-control'>Instructor</option>"; // list box select command
+                                    echo "<select name=ins value='' class='form-control' id='test'>Instructor</option>"; // list box select command
                                     foreach ($conn->query($sql) as $row){//Array or records stored in $row
                                     echo "<option value=$row[ins_id]>$row[ins_name]</option>"; 
                                     /* Option values are added by looping through the array */ 
@@ -69,11 +77,17 @@ include_once '../templates/header.php';
                                     ?>
                                     <br/>
 
+
                                 <?php
 
                                     include "../includes/connect.php"; // Database connection using PDO
                                     //$sql="SELECT name,id FROM student"; 
-                                    $sql="SELECT * FROM tbl_subject"; 
+
+                                    $sql="SELECT DISTINCT sbj_desc
+                                    FROM tbl_grades
+                                    INNER JOIN tbl_subject
+                                    ON tbl_grades.sbj_id=tbl_subject.sbj_id
+                                    WHERE tbl_grades.ins_id =200"; 
                                     echo "<label for='exampleFormControlInput1' class='form-label'>Subject</label>";
                                     /* You can add order by clause to the sql statement if the names are to be displayed in alphabetical order */
                                     echo "<select name=subject value='' class='form-control'>Subject</option>"; // list box select command

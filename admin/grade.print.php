@@ -8,6 +8,7 @@ $_SESSION['syear'] = $_POST["sy"];
 $_SESSION['section'] = $_POST["sec"];
 $_SESSION['yearlvl'] = $_POST["year"];
 $_SESSION['course'] = $_POST["subject"];
+$_SESSION['inst'] = $_POST["ins"];
 
 
 // var_dump($_SESSION);
@@ -18,6 +19,7 @@ $_SESSION['course'] = $_POST["subject"];
     $section = $_SESSION['section'];
     $scyear = $_SESSION['syear'];
     $course = $_SESSION['course'];
+    $inst = $_SESSION['inst'];
 
   }else{
     header("location:grade-table.php?error=nofiles");
@@ -44,9 +46,15 @@ $statement=$conn->prepare("SELECT * FROM `tbl_grades`
                            ON `tbl_grades`.`sbj_id` = `tbl_subject`.`sbj_id`
                            INNER JOIN `tbl_section`
                            ON tbl_grades.sec_id = tbl_section.sec_id
-                           WHERE `tbl_grades`.`sbj_id` = :sbjid AND tbl_grades.sec_id = :secid");
+                           INNER JOIN `tbl_yr`
+                           ON tbl_grades.yr_id = tbl_yr.yr_id
+                           INNER JOIN `tbl_instructor`
+                           ON tbl_grades.ins_id = tbl_instructor.ins_id
+                           WHERE `tbl_grades`.`sbj_id` = :sbjid AND tbl_grades.sec_id = :secid AND tbl_grades.yr_id = :yrid AND tbl_grades.ins_id = :insid");
 $statement->bindParam(':sbjid', $course);
 $statement->bindParam(':secid', $section);
+$statement->bindParam(':yrid', $yearlvl);
+$statement->bindParam(':insid', $inst);
 $statement->execute();
 $sbj_info = $statement->fetch(PDO::FETCH_ASSOC);
 
@@ -151,41 +159,53 @@ hr {
                                     <div class="card mb-4">
                                         <div class="card-body">
                                             <div class="row">
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3">
+                                                    <p class="mb-0">Instructor</p>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <p class="text-muted mb-0"><span class="text-primary font-italic me-1" style="font-size: 18px;"><?php echo $sbj_info["ins_name"] ?></span></p>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-sm-3">
                                                     <p class="mb-0">Description:</p>
                                                 </div>
-                                                <div class="col-sm-8">
+                                                <div class="col-sm-9">
                                                     <p class="text-muted mb-0"  style="font-size: 35px;"><span class="text-primary font-italic me-1" style="font-size: 28px;"><?php echo $sbj_info["sbj_desc"] ?></span></p>
                                                 </div>
                                             </div>
                                             <hr>
                                             <div class="row">
-                                            <div class="col-sm-4">
+                                                <div class="col-sm-3">
                                                     <p class="mb-0">Code:</p>
                                                 </div>
-                                            
-                                            <div class="col-sm-8">
-                                                <p class="text-muted mb-0"><span class="text-primary font-italic me-1" style="font-size: 18px;"><?php echo $sbj_info["sbj_code"] ?></span></p>
-                                            </div>
+                                                <div class="col-sm-3">
+                                                    <p class="text-muted mb-0"><span class="text-primary font-italic me-1" style="font-size: 18px;"><?php echo $sbj_info["sbj_code"] ?></span></p>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <p class="mb-0">Year Level:</p>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <p class="text-muted mb-0"><span class="text-primary font-italic me-1" style="font-size: 18px;"><?php echo $sbj_info["yr_desc"] ?></span></p>
+                                                </div>
                                             </div>
                                             <hr>
                                             <div class="row">
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3">
                                                     <p class="mb-0">Number of Students:</p>
                                                 </div>
-                                                <div class="col-sm-8">
+                                                <div class="col-sm-3">
                                                     <p class="text-muted mb-0"><span class="text-primary font-italic me-1" style="font-size: 18px;"><?php echo $counts["Count"]?></span></p>
                                                 </div>
-                                            </div>
-                                            <hr>
-                                            <div class="row">
-                                                <div class="col-sm-4">
-                                                    <p class="mb-0">Instructor</p>
+                                                <div class="col-sm-3">
+                                                    <p class="mb-0">Section</p>
                                                 </div>
-                                                <div class="col-sm-8">
-                                                    <p class="text-muted mb-0"><span class="text-primary font-italic me-1" style="font-size: 18px;">Michael John Bustamante</span></p>
+                                                <div class="col-sm-3">
+                                                    <p class="text-muted mb-0"><span class="text-primary font-italic me-1" style="font-size: 18px;"><?php echo $sbj_info["sec_desc"]?></span></p>
                                                 </div>
                                             </div>
+                                            
                                         </div>
                                     </div>
                                         

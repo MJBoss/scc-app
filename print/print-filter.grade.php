@@ -59,6 +59,23 @@ include_once '../templates/header.php';
 
                                     include "../includes/connect.php"; // Database connection using PDO
                                     //$sql="SELECT name,id FROM student"; 
+                                    $sql="SELECT * FROM tbl_instructor WHERE ins_id = '200'"; 
+                                    echo "<label for='exampleFormControlInput1' class='form-label'>Instructor</label>";
+                                    /* You can add order by clause to the sql statement if the names are to be displayed in alphabetical order */
+                                    echo "<select name=ins value='' class='form-control'>Instructor</option>"; // list box select command
+                                    foreach ($conn->query($sql) as $row){//Array or records stored in $row
+                                    echo "<option value=$row[ins_id]>$row[ins_name]</option>"; 
+                                    /* Option values are added by looping through the array */ 
+                                    }
+                                    echo "</select>";// Closing of list box
+
+                                    ?>
+                                    <br/>
+
+                                <?php
+
+                                    include "../includes/connect.php"; // Database connection using PDO
+                                    //$sql="SELECT name,id FROM student"; 
                                     $sql="SELECT * FROM tbl_subject"; 
                                     echo "<label for='exampleFormControlInput1' class='form-label'>Subject</label>";
                                     /* You can add order by clause to the sql statement if the names are to be displayed in alphabetical order */
