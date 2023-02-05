@@ -13,6 +13,7 @@
 session_start();
 
 
+
 $_SESSION['instructor'] = $_POST["ins_id"];
 
 var_dump($_SESSION);

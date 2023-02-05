@@ -1,14 +1,25 @@
 <?php
 
-
+include_once '../includes/connect.php';
 session_start();
-
+var_dump($_SESSION);
 
 $_SESSION['syear'] = $_POST["sy"];
 $_SESSION['section'] = $_POST["sec"];
 $_SESSION['yearlvl'] = $_POST["year"];
 $_SESSION['course'] = $_POST["subject"];
 $_SESSION['inst'] = $_POST["ins"];
+
+
+
+$count=$conn->prepare("SELECT COUNT(*) AS Count, ROUND(AVG(final), 2) AS Average FROM tbl_grades WHERE sbj_id = :sbjid AND yr_id = :yrid AND sec_id = :secid");
+$count->bindParam(':sbjid', $_SESSION['course']);
+$count->bindParam(':yrid', $_SESSION['yearlvl']);
+$count->bindParam(':secid', $_SESSION['section']);
+$count->execute();
+$counts = $count->fetch(PDO::FETCH_ASSOC);
+$num = $counts["Count"];
+
 
 
 // var_dump($_SESSION);
@@ -20,6 +31,12 @@ $_SESSION['inst'] = $_POST["ins"];
     $scyear = $_SESSION['syear'];
     $course = $_SESSION['course'];
     $inst = $_SESSION['inst'];
+
+    if($num == 0){
+        header("location:../print/print-filter.grade.php?error=norecordfound");
+    }
+    
+
 
   }else{
     header("location:grade-table.php?error=nofiles");
@@ -58,12 +75,7 @@ $statement->bindParam(':insid', $inst);
 $statement->execute();
 $sbj_info = $statement->fetch(PDO::FETCH_ASSOC);
 
-$count=$conn->prepare("SELECT COUNT(*) AS Count, ROUND(AVG(final), 2) AS Average FROM tbl_grades WHERE sbj_id = :sbjid AND yr_id = :yrid AND sec_id = :secid");
-$count->bindParam(':sbjid', $course);
-$count->bindParam(':yrid', $yearlvl);
-$count->bindParam(':secid', $section);
-$count->execute();
-$counts = $count->fetch(PDO::FETCH_ASSOC);
+
 
 
 

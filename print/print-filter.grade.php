@@ -13,7 +13,7 @@ include_once '../templates/header.php';
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Select Filter</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        
                     </div>
 
                         <form action="../admin/grade.print.php" method="post">
@@ -76,7 +76,11 @@ include_once '../templates/header.php';
 
                                     include "../includes/connect.php"; // Database connection using PDO
                                     //$sql="SELECT name,id FROM student"; 
-                                    $sql="SELECT * FROM tbl_subject"; 
+                                    $sql="SELECT DISTINCT tbl_subject.sbj_desc, tbl_subject.sbj_id
+                                          FROM tbl_grades
+                                          INNER JOIN tbl_subject
+                                          ON tbl_grades.sbj_id = tbl_subject.sbj_id
+                                          WHERE tbl_grades.ins_id = 200"; 
                                     echo "<label for='exampleFormControlInput1' class='form-label'>Subject</label>";
                                     /* You can add order by clause to the sql statement if the names are to be displayed in alphabetical order */
                                     echo "<select name=subject value='' class='form-control'>Subject</option>"; // list box select command
@@ -110,7 +114,11 @@ include_once '../templates/header.php';
 
                                     include "../includes/connect.php"; // Database connection using PDO
                                     //$sql="SELECT name,id FROM student"; 
-                                    $sql="SELECT * FROM tbl_section"; 
+                                    $sql="SELECT DISTINCT tbl_section.sec_desc, tbl_section.sec_id
+                                    FROM tbl_grades
+                                    INNER JOIN tbl_section
+                                    ON tbl_grades.sec_id = tbl_section.sec_id
+                                    WHERE tbl_grades.ins_id = 200;"; 
                                     echo "<label for='exampleFormControlInput1' class='form-label'>Section</label>";
                                     /* You can add order by clause to the sql statement if the names are to be displayed in alphabetical order */
                                     echo "<select name=sec value='' class='form-control'>Section</option>"; // list box select command
