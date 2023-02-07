@@ -249,7 +249,16 @@ nav.navbar.navbar-expand.navbar-light.bg-white.topbar.mb-4.static-top.shadow {
                                                             foreach ($db->query($sql) as $row) {
                                                                 ?>
                                                                 <tr>
-                                                                    <td style="padding: 0 !important"><ul style="margin: 0 !important"><li><?php echo $row["eval_comments"]?></li></ul></td>
+
+
+                                                                    <!-- <td style="padding: 0 !important"><ul style="margin: 0 !important"><li>< ?php echo $row["eval_comments"]?></li></ul></td> -->
+                                                                    <?php   if($row["eval_comments"] == "None" || $row["eval_comments"] == " " || $row["eval_comments"] == "N/A" 
+                                                                        || $row["eval_comments"] == "Nothing" || $row["eval_comments"] == "." ||$row["eval_comments"] == "no" || $row["eval_comments"] == "none" 
+                                                                        || $row["eval_comments"] == "none so far" || $row["eval_comments"] == "Nothing" || $row["eval_comments"] == "nothing" || $row["eval_comments"] == "None so far"){ ?>
+                                                                               
+                                                                    <?php }else{ ?>
+                                                                                <td style="padding: 0 !important"><ul style="margin: 0 !important"><li><?php echo $row["eval_comments"]?></li></ul></td>
+                                                                    <?php } ?>
                                                                 </tr>
                                                                 <?php 
                                                             }

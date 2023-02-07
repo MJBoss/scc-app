@@ -1,6 +1,63 @@
 <?php
 include_once '../templates/header.php';
 ?>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+            <script>
+            $(document).ready(function(){
+                $('#instructor').on('change', function(){
+                    var instructorID = $(this).val();
+                    if(instructorID){
+                        $.ajax({
+                            type:'POST',
+                            url:'ajaxData.php',
+                            data:'instructor_id='+instructorID,
+                            success:function(html){
+                                $('#subject').html(html);
+                                $('#year').html('<option value="">Select subject first</option>'); 
+                            }
+                        }); 
+                    }else{
+                        $('#subject').html('<option value="">Select instructor first</option>');
+                        $('#year').html('<option value="">Select subject first</option>'); 
+                    }
+                });
+                
+                $('#subject').on('change', function(){
+                    var subjectID = $(this).val();
+                    if(subjectID){
+                        $.ajax({
+                            type:'POST',
+                            url:'ajaxData.php',
+                            data:'subject_id='+subjectID,
+                            success:function(html){
+                                $('#year').html(html);
+                            }
+                        }); 
+                    }else{
+                        $('#city').html('<option value="">Select instructor first</option>'); 
+                    }
+                });
+
+                $('#year').on('change', function(){
+                    var yearID = $(this).val();
+                    if(yearID){
+                        $.ajax({
+                            type:'POST',
+                            url:'ajaxData.php',
+                            data:'year_id='+yearID,
+                            success:function(html){
+                                $('#section').html(html);
+                            }
+                        }); 
+                    }else{
+                        $('#section').html('<option value="">Select year first</option>'); 
+                    }
+                });
+            });
+            </script>
     
 
     <!-- Begin Page Content -->
@@ -13,7 +70,7 @@ include_once '../templates/header.php';
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Select Filter</h5>
-                        
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
                         <form action="../admin/grade.print.php" method="post">
@@ -55,80 +112,46 @@ include_once '../templates/header.php';
                                 ?>
                                 <br/>
 
-                                <?php
-
-                                    include "../includes/connect.php"; // Database connection using PDO
-                                    //$sql="SELECT name,id FROM student"; 
-                                    $sql="SELECT * FROM tbl_instructor WHERE ins_id = '200'"; 
-                                    echo "<label for='exampleFormControlInput1' class='form-label'>Instructor</label>";
-                                    /* You can add order by clause to the sql statement if the names are to be displayed in alphabetical order */
-                                    echo "<select name=ins value='' class='form-control'>Instructor</option>"; // list box select command
-                                    foreach ($conn->query($sql) as $row){//Array or records stored in $row
-                                    echo "<option value=$row[ins_id]>$row[ins_name]</option>"; 
-                                    /* Option values are added by looping through the array */ 
-                                    }
-                                    echo "</select>";// Closing of list box
-
-                                    ?>
-                                    <br/>
-
-                                <?php
-
-                                    include "../includes/connect.php"; // Database connection using PDO
-                                    //$sql="SELECT name,id FROM student"; 
-                                    $sql="SELECT DISTINCT tbl_subject.sbj_desc, tbl_subject.sbj_id
-                                          FROM tbl_grades
-                                          INNER JOIN tbl_subject
-                                          ON tbl_grades.sbj_id = tbl_subject.sbj_id
-                                          WHERE tbl_grades.ins_id = 200"; 
-                                    echo "<label for='exampleFormControlInput1' class='form-label'>Subject</label>";
-                                    /* You can add order by clause to the sql statement if the names are to be displayed in alphabetical order */
-                                    echo "<select name=subject value='' class='form-control'>Subject</option>"; // list box select command
-                                    foreach ($conn->query($sql) as $row){//Array or records stored in $row
-                                    echo "<option value=$row[sbj_id]>$row[sbj_desc]</option>"; 
-                                    /* Option values are added by looping through the array */ 
-                                    }
-                                    echo "</select>";// Closing of list box
-
+                                <?php 
+                                    // Include the database config file 
+                                    include_once '../includes/connects.php'; 
+                                    
+                                    // Fetch all the country data 
+                                    $query = "SELECT * FROM tbl_instructor"; 
+                                    $result = $db->query($query); 
                                 ?>
+                                <!-- Country dropdown -->
+                                <label for='exampleFormControlInput1' class='form-label'>Instructor</label>
+                                <select id="instructor" name="ins" class='form-control'>
+                                    <option value="">Select Instructor</option>
+                                    <?php 
+                                        if($result->num_rows > 0){ 
+                                            while($row = $result->fetch_assoc()){  
+                                                echo '<option value="'.$row['ins_id'].'">'.$row['ins_name'].'</option>'; 
+                                            } 
+                                        }else{ 
+                                            echo '<option value="">Instructor not found</option>'; 
+                                        } 
+                                        ?>
+                                </select>
+                                <br/>
+                                <label for='exampleFormControlInput1' class='form-label'>Subject</label>
+                                <select id="subject" name="subject" class='form-control'>
+                                    <option value="">Select instructor first</option>
+                                </select>
+                                <br/>
+                                <label for='exampleFormControlInput1' class='form-label'>Year Level</label>
+                                <select id="year" name="year" class='form-control'>
+                                    <option value="">Select subject first</option>
+                                </select>
+                                <br/>
+                                <label for='exampleFormControlInput1' class='form-label'>Section</label>
+                                <select id="section" name="sec" class='form-control'>
+                                    <option value="">Select year first</option>
+                                </select>
                                 <br/>
 
-                                <?php
-
-                                    include "../includes/connect.php"; // Database connection using PDO
-                                    //$sql="SELECT name,id FROM student"; 
-                                    $sql="SELECT * FROM tbl_yr"; 
-                                    echo "<label for='exampleFormControlInput1' class='form-label'>Year Level</label>";
-                                    /* You can add order by clause to the sql statement if the names are to be displayed in alphabetical order */
-                                    echo "<select name=year value='' class='form-control'>Year Level</option>"; // list box select command
-                                    foreach ($conn->query($sql) as $row){//Array or records stored in $row
-                                    echo "<option value=$row[yr_id]>$row[yr_desc]</option>"; 
-                                    /* Option values are added by looping through the array */ 
-                                    }
-                                    echo "</select>";// Closing of list box
-
-                                ?>
-                                <br/>
-
-                                <?php
-
-                                    include "../includes/connect.php"; // Database connection using PDO
-                                    //$sql="SELECT name,id FROM student"; 
-                                    $sql="SELECT DISTINCT tbl_section.sec_desc, tbl_section.sec_id
-                                    FROM tbl_grades
-                                    INNER JOIN tbl_section
-                                    ON tbl_grades.sec_id = tbl_section.sec_id
-                                    WHERE tbl_grades.ins_id = 200;"; 
-                                    echo "<label for='exampleFormControlInput1' class='form-label'>Section</label>";
-                                    /* You can add order by clause to the sql statement if the names are to be displayed in alphabetical order */
-                                    echo "<select name=sec value='' class='form-control'>Section</option>"; // list box select command
-                                    foreach ($conn->query($sql) as $row){//Array or records stored in $row
-                                    echo "<option value=$row[sec_id]>$row[sec_desc]</option>"; 
-                                    /* Option values are added by looping through the array */ 
-                                    }
-                                    echo "</select>";// Closing of list box
-
-                                ?>
+                               
                                 <br/>
 
 

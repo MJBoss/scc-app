@@ -64,7 +64,7 @@ include_once '../templates/header.php';
 
                                     include "../includes/connect.php"; // Database connection using PDO
                                     //$sql="SELECT name,id FROM student"; 
-                                    $sql="SELECT * FROM tbl_instructor WHERE ins_id = '200'"; 
+                                    $sql="SELECT * FROM tbl_instructor"; 
                                     echo "<label for='exampleFormControlInput1' class='form-label'>Instructor</label>";
                                     /* You can add order by clause to the sql statement if the names are to be displayed in alphabetical order */
                                     echo "<select name=ins value='' class='form-control' id='test'>Instructor</option>"; // list box select command
@@ -83,11 +83,7 @@ include_once '../templates/header.php';
                                     include "../includes/connect.php"; // Database connection using PDO
                                     //$sql="SELECT name,id FROM student"; 
 
-                                    $sql="SELECT DISTINCT sbj_desc
-                                    FROM tbl_grades
-                                    INNER JOIN tbl_subject
-                                    ON tbl_grades.sbj_id=tbl_subject.sbj_id
-                                    WHERE tbl_grades.ins_id =200"; 
+                                    $sql="SELECT * FROM tbl_subject"; 
                                     echo "<label for='exampleFormControlInput1' class='form-label'>Subject</label>";
                                     /* You can add order by clause to the sql statement if the names are to be displayed in alphabetical order */
                                     echo "<select name=subject value='' class='form-control'>Subject</option>"; // list box select command

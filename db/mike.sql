@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 05, 2023 at 04:03 AM
+-- Generation Time: Feb 07, 2023 at 04:44 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -97,6 +97,31 @@ CREATE TABLE `tbl_course` (
 
 INSERT INTO `tbl_course` (`course_id`, `course_code`, `course_desc`) VALUES
 (1, 'BSIT', 'Bachelor of Science in Information Technology');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_day`
+--
+
+CREATE TABLE `tbl_day` (
+  `day_id` int(10) NOT NULL,
+  `day_desc` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_day`
+--
+
+INSERT INTO `tbl_day` (`day_id`, `day_desc`) VALUES
+(1, 'Monday'),
+(2, 'Tuesday'),
+(3, 'Wednesday'),
+(4, 'Thursday'),
+(5, 'Friday'),
+(6, 'Saturday'),
+(7, 'Sunday'),
+(8, 'MW');
 
 -- --------------------------------------------------------
 
@@ -12302,7 +12327,127 @@ INSERT INTO `tbl_grades` (`grd_id`, `s_id`, `sbj_id`, `sy_id`, `sem_id`, `sec_id
 (2982, 'SCC-16-0003403', 5, 1, 1, 1, 4, 200, '2.4', '2.2', '2.1', '2.3'),
 (2983, 'SCC-17-0004621', 5, 1, 1, 1, 4, 200, '2.2', '2.0', '2.0', '2.1'),
 (2984, 'SCC-18-0007235', 5, 1, 1, 1, 4, 200, '2.1', '2.0', '2.1', '2.0'),
-(2985, 'SCC-17-0004783', 5, 1, 1, 1, 4, 200, '2.5', '2.4', '2.3', '2.1');
+(2985, 'SCC-17-0004783', 5, 1, 1, 1, 4, 200, '2.5', '2.4', '2.3', '2.1'),
+(2986, 'SCC-18-0007848', 6, 1, 1, 1, 3, 199, '2.2', '2.0', '2.1', '2.0'),
+(2987, 'SCC-18-0006048', 6, 1, 1, 1, 3, 199, '2.6', '2.4', '2.5', '2.3'),
+(2988, 'SCC-20-00011552', 6, 1, 1, 1, 3, 199, '2.5', '2.3', '2.4', '2.4'),
+(2989, 'SCC-18-0007440', 6, 1, 1, 1, 3, 199, '2.0', '1.8', '1.9', '1.6'),
+(2990, 'SCC-18-0006539', 6, 1, 1, 1, 3, 199, '2.1', '1.8', '1.9', '2.0'),
+(2991, 'SCC-19-00010119', 6, 1, 1, 1, 3, 199, '2.5', '2.3', '2.4', '2.4'),
+(2992, 'SCC-18-0006529', 6, 1, 1, 1, 3, 199, '2.5', '2.2', '2.3', '2.4'),
+(2993, 'SCC-14-0001379', 6, 1, 1, 1, 3, 199, '2.3', '2.2', '2.1', '2.3'),
+(2994, 'SCC-20-00011875', 6, 1, 1, 1, 3, 199, '2.1', '1.9', '2.0', '2.1'),
+(2995, 'SCC-19-0009291', 6, 1, 1, 1, 3, 199, '2.5', '2.3', '2.4', '2.4'),
+(2996, 'SCC-14-0001232', 6, 1, 1, 1, 3, 199, '1.8', '1.7', '1.8', '1.5'),
+(2997, 'SCC-18-0006758', 6, 1, 1, 1, 3, 199, '1.8', '1.7', '1.8', '1.7'),
+(2998, 'SCC-19-00010489', 6, 1, 1, 1, 3, 199, '2.3', '2.1', '2.2', '1.8'),
+(2999, 'SCC-18-0006079', 6, 1, 1, 1, 3, 199, '2.3', '2.1', '2.2', '1.8'),
+(3000, 'SCC-17-0005338', 6, 1, 1, 1, 3, 199, '2.3', '2.0', '2.1', '2.0'),
+(3001, 'SCC-18-0008097', 6, 1, 1, 1, 3, 199, '2.3', '2.0', '2.1', '2.2'),
+(3002, 'SCC-18-0006772', 6, 1, 1, 1, 3, 199, '2.2', '2.1', '2.2', '2.3'),
+(3003, 'SCC-19-00010356', 6, 1, 1, 1, 3, 199, '2.6', '2.4', '2.5', '2.4'),
+(3004, 'SCC-18-0008720', 6, 1, 1, 1, 3, 199, '2.2', '1.9', '2.0', '2.2'),
+(3005, 'SCC-19-00010322', 6, 1, 1, 1, 3, 199, '2.2', '1.9', '2.0', '2.0'),
+(3006, 'SCC-18-0006686', 6, 1, 1, 1, 3, 199, '2.4', '2.0', '2.1', '1.9'),
+(3007, 'SCC-17-0004643', 6, 1, 1, 1, 3, 199, '2.3', '2.0', '2.1', '1.8'),
+(3008, 'SCC-17-0005243', 6, 1, 1, 1, 3, 199, '2.1', '2.0', '2.1', '2.2'),
+(3009, 'SCC-19-00010620', 6, 1, 1, 1, 3, 199, '2.5', '2.3', '2.4', '2.0'),
+(3010, 'SCC-18-0007848', 7, 1, 1, 1, 3, 199, '2.2', '1.8', '1.9', '2.1'),
+(3011, 'SCC-18-0006048', 7, 1, 1, 1, 3, 199, '2.4', '2.1', '2.2', '2.3'),
+(3012, 'SCC-20-00011552', 7, 1, 1, 1, 3, 199, '2.3', '2.0', '2.0', '2.3'),
+(3013, 'SCC-18-0007440', 7, 1, 1, 1, 3, 199, '1.8', '1.7', '1.8', '1.7'),
+(3014, 'SCC-18-0006539', 7, 1, 1, 1, 3, 199, '1.9', '1.6', '1.8', '2.0'),
+(3015, 'SCC-19-00010119', 7, 1, 1, 1, 3, 199, '2.2', '2.0', '2.1', '2.4'),
+(3016, 'SCC-18-0006529', 7, 1, 1, 1, 3, 199, '2.6', '2.4', '2.5', '2.6'),
+(3017, 'SCC-14-0001379', 7, 1, 1, 1, 3, 199, '2.3', '2.1', '2.2', '2.0'),
+(3018, 'SCC-20-00011880', 7, 1, 1, 1, 3, 199, '2.5', '2.2', '2.3', '2.5'),
+(3019, 'SCC-20-00011875', 7, 1, 1, 1, 3, 199, '2.2', '2.0', '2.1', '2.2'),
+(3020, 'SCC-19-0009291', 7, 1, 1, 1, 3, 199, '2.0', '1.9', '2.0', '2.2'),
+(3021, 'SCC-14-0001232', 7, 1, 1, 1, 3, 199, '1.7', '1.6', '1.7', '1.6'),
+(3022, 'SCC-18-0006758', 7, 1, 1, 1, 3, 199, '1.8', '1.7', '1.8', '2.0'),
+(3023, 'SCC-19-00010489', 7, 1, 1, 1, 3, 199, '1.9', '1.9', '2.1', '2.2'),
+(3024, 'SCC-18-0006939', 7, 1, 1, 1, 3, 199, '2.3', '2.2', '2.2', '2.4'),
+(3025, 'SCC-16-0004160', 7, 1, 1, 1, 3, 199, 'INC', 'INC', 'INC', 'INC'),
+(3026, 'SCC-18-0006079', 7, 1, 1, 1, 3, 199, '2.3', '2.1', '2.2', '2.4'),
+(3027, 'SCC-17-0005338', 7, 1, 1, 1, 3, 199, '2.2', '2.0', '2.1', '2.1'),
+(3028, 'SCC-18-0008097', 7, 1, 1, 1, 3, 199, '2.2', '2.0', '2.1', '2.4'),
+(3029, 'SCC-18-0006772', 7, 1, 1, 1, 3, 199, '2.4', '2.2', '2.3', '2.5'),
+(3030, 'SCC-19-00010480', 7, 1, 1, 1, 3, 199, '2.3', '2.1', '2.2', '2.3'),
+(3031, 'SCC-19-00010356', 7, 1, 1, 1, 3, 199, '2.4', '2.2', '2.2', '2.4'),
+(3032, 'SCC-18-0008720', 7, 1, 1, 1, 3, 199, '2.2', '2.0', '2.1', '2.2'),
+(3033, 'SCC-19-00010322', 7, 1, 1, 1, 3, 199, '2.2', '2.0', '2.1', '2.2'),
+(3034, 'SCC-20-00011944', 7, 1, 1, 1, 3, 199, '2.6', '2.3', '2.4', '2.4'),
+(3035, 'SCC-18-0006686', 7, 1, 1, 1, 3, 199, '2.4', '2.2', '2.3', '2.5'),
+(3036, 'SCC-18-0007793', 8, 1, 1, 1, 4, 199, '2.5', '2.3', '2.4', 'INC'),
+(3037, 'SCC-19-00010625', 8, 1, 1, 1, 4, 199, '2.6', '2.4', '2.4', 'INC'),
+(3038, 'SCC-19-0009987', 8, 1, 1, 1, 4, 199, '1.8', '1.8', '2.6', 'INC'),
+(3039, 'SCC-17-0005276', 8, 1, 1, 1, 4, 199, '1.9', '1.9', '2.4', 'INC'),
+(3040, 'SCC-19-00010487', 8, 1, 1, 1, 4, 199, '1.9', '1.9', '2.5', 'INC'),
+(3041, 'SCC-18-0008724', 8, 1, 1, 1, 4, 199, '2.8', '2.6', '2.6', 'INC'),
+(3042, 'SCC-17-0004761', 8, 1, 1, 1, 4, 199, '2.7', '2.5', '2.7', 'INC'),
+(3043, 'SCC-12-000822', 8, 1, 1, 1, 4, 199, '2.8', '2.6', '2.7', 'INC'),
+(3044, 'SCC-18-0008472', 8, 1, 1, 1, 4, 199, '2.5', '2.3', 'INC', 'INC'),
+(3045, 'SCC-19-0009829', 8, 1, 1, 1, 4, 199, '2.6', '2.4', '2.9', 'INC'),
+(3046, 'SCC-17-0005119', 8, 1, 1, 1, 4, 199, '2.8', '2.5', '2.8', 'INC'),
+(3047, 'SCC-19-00010326', 8, 1, 1, 1, 4, 199, '2', '2', '2.9', 'INC'),
+(3048, 'SCC-19-00010298', 8, 1, 1, 1, 4, 199, '2.5', '2.3', '2.8', 'INC'),
+(3049, 'SCC-19-00010246', 8, 1, 1, 1, 4, 199, '2.3', '2.2', '2.6', 'INC'),
+(3050, 'SCC-19-00010575', 8, 1, 1, 1, 4, 199, '2.6', '2.4', '2.4', 'INC'),
+(3051, 'SCC-15-0002698', 8, 1, 1, 1, 4, 199, '2.5', '2.3', '2.4', 'INC'),
+(3052, 'SCC-18-0008454', 8, 1, 1, 1, 4, 199, '2.6', '2.4', '2.2', 'INC'),
+(3053, 'SCC-19-0009611', 8, 1, 1, 1, 4, 199, '2', '2', '2.2', 'INC'),
+(3054, 'SCC-18-0008221', 8, 1, 1, 1, 4, 199, '1.9', '1.9', '2.6', 'INC'),
+(3055, 'SCC-19-0009338', 8, 1, 1, 1, 4, 199, '2.3', '2.2', '2.5', 'INC'),
+(3056, 'SCC-17-0004823', 8, 1, 1, 1, 4, 199, '2.7', '2.6', '2.8', 'INC'),
+(3057, 'SCC-17-0004665', 8, 1, 1, 1, 4, 199, '2.5', '2.2', '2.4', 'INC'),
+(3058, 'SCC-17-0005183', 8, 1, 1, 1, 4, 199, '2.8', '2.5', '2.5', 'INC'),
+(3059, 'SCC-19-0009881', 8, 1, 1, 1, 4, 199, '2.5', '2.4', 'INC', 'INC'),
+(3060, 'SCC-17-0004726', 8, 1, 1, 1, 4, 199, '2.5', '2.3', '2.3', 'INC'),
+(3061, 'SCC-18-0008640', 8, 1, 1, 1, 4, 199, '2.6', '2.4', '2.4', 'INC'),
+(3062, 'SCC-17-0004609', 8, 1, 1, 1, 4, 199, '2.5', '2.3', '2.5', 'INC'),
+(3063, 'SCC-16-0004137', 8, 1, 1, 1, 4, 199, '1.8', '1.8', '2.0', 'INC'),
+(3064, 'SCC-13-0001146', 8, 1, 1, 1, 4, 199, '2.8', '2.6', '2.6', 'INC'),
+(3065, 'SCC-18-0008225', 8, 1, 1, 1, 4, 199, '2.9', '2.7', '2.8', 'INC'),
+(3066, 'SCC-16-0003403', 8, 1, 1, 1, 4, 199, '2.8', '2.6', '2.7', 'INC'),
+(3067, 'SCC-17-0004621', 8, 1, 1, 1, 4, 199, '2.4', '2.2', '2.4', 'INC'),
+(3068, 'SCC-18-0007235', 8, 1, 1, 1, 4, 199, '2.8', '2.5', '2.6', 'INC'),
+(3069, 'SCC-17-0004783', 8, 1, 1, 1, 4, 199, '2.8', '2.5', '2.6', 'INC'),
+(3106, 'SCC-18-0007793', 9, 1, 1, 1, 4, 199, '2.3', '2.1', '2.2', '2'),
+(3107, 'SCC-19-00010625', 9, 1, 1, 1, 4, 199, '2.4', '2.2', '2.3', '2.1'),
+(3108, 'SCC-19-0009987', 9, 1, 1, 1, 4, 199, '1.8', '1.7', '1.8', '1.7'),
+(3109, 'SCC-17-0005276', 9, 1, 1, 1, 4, 199, '1.9', '1.8', '1.8', '1.7'),
+(3110, 'SCC-19-00010487', 9, 1, 1, 1, 4, 199, '1.9', '1.8', '1.8', '1.8'),
+(3111, 'SCC-18-0008724', 9, 1, 1, 1, 4, 199, '2.5', '2.3', '2.4', '2.3'),
+(3112, 'SCC-17-0004761', 9, 1, 1, 1, 4, 199, '2.4', '2.2', '2.3', '2.3'),
+(3113, 'SCC-12-000822', 9, 1, 1, 1, 4, 199, '2.5', '2.2', '2.4', '2.2'),
+(3114, 'SCC-17-0004643', 9, 1, 1, 1, 4, 199, '2.5', '2.3', '2.4', '2.3'),
+(3115, 'SCC-18-0008472', 9, 1, 1, 1, 4, 199, '2.3', '2.1', 'INC', 'INC'),
+(3116, 'SCC-19-0009829', 9, 1, 1, 1, 4, 199, '2.4', '2.2', '2.3', '2'),
+(3117, 'SCC-17-0005119', 9, 1, 1, 1, 4, 199, '2.5', '2.3', '2.4', '2.2'),
+(3118, 'SCC-19-00010326', 9, 1, 1, 1, 4, 199, '2', '1.8', '1.9', '1.9'),
+(3119, 'SCC-19-00010298', 9, 1, 1, 1, 4, 199, '2.3', '2.1', '2.2', '2'),
+(3120, 'SCC-17-0005121', 9, 1, 1, 1, 4, 199, '2.5', '2.3', '2.4', '2.3'),
+(3121, 'SCC-19-00010246', 9, 1, 1, 1, 4, 199, '2.2', '2', '2.1', '1.9'),
+(3122, 'SCC-19-00010575', 9, 1, 1, 1, 4, 199, '2.2', '1.9', '2.1', '1.8'),
+(3123, 'SCC-15-0002698', 9, 1, 1, 1, 4, 199, '2.3', '2', '2.2', '2'),
+(3124, 'SCC-18-0008454', 9, 1, 1, 1, 4, 199, '2.4', '2.1', '2.3', '2.2'),
+(3125, 'SCC-19-0009611', 9, 1, 1, 1, 4, 199, '2', '1.8', '1.9', '1.9'),
+(3126, 'SCC-18-0008221', 9, 1, 1, 1, 4, 199, '1.9', '1.7', '1.8', '1.7'),
+(3127, 'SCC-19-0009338', 9, 1, 1, 1, 4, 199, '2.2', '2', '2.1', '2'),
+(3128, 'SCC-17-0004823', 9, 1, 1, 1, 4, 199, '2.5', '2.4', '2.5', '2.4'),
+(3129, 'SCC-17-0004665', 9, 1, 1, 1, 4, 199, '2.1', '1.8', '2', '1.7'),
+(3130, 'SCC-17-0005183', 9, 1, 1, 1, 4, 199, '2.5', '2.2', '2.4', '2.2'),
+(3131, 'SCC-19-0009881', 9, 1, 1, 1, 4, 199, '2.5', '2.3', 'INC', 'INC'),
+(3132, 'SCC-17-0004726', 9, 1, 1, 1, 4, 199, '2.2', '1.9', '2.1', '1.8'),
+(3133, 'SCC-18-0008640', 9, 1, 1, 1, 4, 199, '2.5', '2.3', '2.4', '2.2'),
+(3134, 'SCC-17-0004609', 9, 1, 1, 1, 4, 199, '2.2', '2', '2.1', '1.9'),
+(3135, 'SCC-16-0004137', 9, 1, 1, 1, 4, 199, '1.8', '1.7', '1.8', '1.7'),
+(3136, 'SCC-13-0001146', 9, 1, 1, 1, 4, 199, '2.4', '2.2', '2.3', '2.1'),
+(3137, 'SCC-18-0008225', 9, 1, 1, 1, 4, 199, '2.5', '2.3', '2.4', '2.3'),
+(3138, 'SCC-16-0003403', 9, 1, 1, 1, 4, 199, '2.5', '2.4', '2.5', '2.3'),
+(3139, 'SCC-17-0004621', 9, 1, 1, 1, 4, 199, '2.2', '2', '2.1', '1.9'),
+(3140, 'SCC-18-0007235', 9, 1, 1, 1, 4, 199, '2.4', '2.2', '2.3', '2.1'),
+(3141, 'SCC-17-0004783', 9, 1, 1, 1, 4, 199, '2.4', '2.1', '2.3', '2.0');
 
 -- --------------------------------------------------------
 
@@ -12474,6 +12619,52 @@ INSERT INTO `tbl_questions` (`que_id`, `que_desc`) VALUES
 (28, 'I trust this teacher.'),
 (29, 'Teacher tries to model what he/she expects from students.'),
 (30, 'Teacher is fair and firm in the discipline without being so strict.');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_room`
+--
+
+CREATE TABLE `tbl_room` (
+  `room_id` int(10) NOT NULL,
+  `room_desc` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_room`
+--
+
+INSERT INTO `tbl_room` (`room_id`, `room_desc`) VALUES
+(1, 'COMPLAB-BS2'),
+(2, 'COMPLAB-BS1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_sched`
+--
+
+CREATE TABLE `tbl_sched` (
+  `sched_id` int(10) NOT NULL,
+  `sy_id` int(10) NOT NULL,
+  `sem_id` int(10) NOT NULL,
+  `ins_id` int(10) NOT NULL,
+  `sbj_id` int(50) NOT NULL,
+  `day_id` int(10) NOT NULL,
+  `yr_id` int(10) NOT NULL,
+  `sec_id` int(10) NOT NULL,
+  `start_time` time NOT NULL,
+  `end_time` time NOT NULL,
+  `room_id` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_sched`
+--
+
+INSERT INTO `tbl_sched` (`sched_id`, `sy_id`, `sem_id`, `ins_id`, `sbj_id`, `day_id`, `yr_id`, `sec_id`, `start_time`, `end_time`, `room_id`) VALUES
+(2, 1, 1, 200, 1, 1, 1, 1, '13:00:00', '14:30:00', 1);
 
 -- --------------------------------------------------------
 
@@ -12958,19 +13149,24 @@ CREATE TABLE `tbl_subject` (
   `sbj_id` int(10) NOT NULL,
   `sbj_code` varchar(20) NOT NULL,
   `sbj_desc` varchar(300) NOT NULL,
-  `sbj_unit` int(5) NOT NULL
+  `lab_units` int(10) NOT NULL,
+  `lec_units` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_subject`
 --
 
-INSERT INTO `tbl_subject` (`sbj_id`, `sbj_code`, `sbj_desc`, `sbj_unit`) VALUES
-(1, 'CC102', 'Computer Programming 1', 3),
-(2, 'WS301', 'Elective 1: Web Development 1', 3),
-(3, 'PF201', 'Object-Oriented Programming I', 3),
-(4, 'IT306', 'Multimedia Systems', 3),
-(5, 'IT402', 'Free Elective', 3);
+INSERT INTO `tbl_subject` (`sbj_id`, `sbj_code`, `sbj_desc`, `lab_units`, `lec_units`) VALUES
+(1, 'CC102', 'Computer Programming 1', 3, 2),
+(2, 'WS301', 'Elective 1: Web Development 1', 3, 2),
+(3, 'PF201', 'Object-Oriented Programming I', 3, 2),
+(4, 'IT306', 'Multimedia Systems', 3, 2),
+(5, 'IT402', 'Free Elective', 3, 2),
+(6, 'IT307', 'System Analysis and Design', 3, 2),
+(7, 'SIA304', 'Systems Integration and Architecture', 3, 2),
+(8, 'CAP401', 'Capstone Project 2', 3, 2),
+(9, 'SA405', 'System Administrator and Maintenance', 3, 2);
 
 -- --------------------------------------------------------
 
@@ -13064,6 +13260,12 @@ ALTER TABLE `tbl_course`
   ADD PRIMARY KEY (`course_id`);
 
 --
+-- Indexes for table `tbl_day`
+--
+ALTER TABLE `tbl_day`
+  ADD PRIMARY KEY (`day_id`);
+
+--
 -- Indexes for table `tbl_evaluation`
 --
 ALTER TABLE `tbl_evaluation`
@@ -13108,6 +13310,26 @@ ALTER TABLE `tbl_post`
 --
 ALTER TABLE `tbl_questions`
   ADD PRIMARY KEY (`que_id`);
+
+--
+-- Indexes for table `tbl_room`
+--
+ALTER TABLE `tbl_room`
+  ADD PRIMARY KEY (`room_id`);
+
+--
+-- Indexes for table `tbl_sched`
+--
+ALTER TABLE `tbl_sched`
+  ADD PRIMARY KEY (`sched_id`),
+  ADD KEY `sysched` (`sy_id`),
+  ADD KEY `inssched` (`ins_id`),
+  ADD KEY `sbjsched` (`sbj_id`),
+  ADD KEY `semsched` (`sem_id`),
+  ADD KEY `daysched` (`day_id`),
+  ADD KEY `roomsched` (`room_id`),
+  ADD KEY `yearsched` (`yr_id`),
+  ADD KEY `secsched` (`sec_id`);
 
 --
 -- Indexes for table `tbl_section`
@@ -13168,6 +13390,12 @@ ALTER TABLE `tbl_course`
   MODIFY `course_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `tbl_day`
+--
+ALTER TABLE `tbl_day`
+  MODIFY `day_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT for table `tbl_evaluation`
 --
 ALTER TABLE `tbl_evaluation`
@@ -13183,7 +13411,7 @@ ALTER TABLE `tbl_general`
 -- AUTO_INCREMENT for table `tbl_grades`
 --
 ALTER TABLE `tbl_grades`
-  MODIFY `grd_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2986;
+  MODIFY `grd_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3142;
 
 --
 -- AUTO_INCREMENT for table `tbl_instructor`
@@ -13196,6 +13424,18 @@ ALTER TABLE `tbl_instructor`
 --
 ALTER TABLE `tbl_questions`
   MODIFY `que_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT for table `tbl_room`
+--
+ALTER TABLE `tbl_room`
+  MODIFY `room_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `tbl_sched`
+--
+ALTER TABLE `tbl_sched`
+  MODIFY `sched_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_section`
@@ -13213,7 +13453,7 @@ ALTER TABLE `tbl_sem`
 -- AUTO_INCREMENT for table `tbl_subject`
 --
 ALTER TABLE `tbl_subject`
-  MODIFY `sbj_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `sbj_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_sy`
@@ -13262,6 +13502,19 @@ ALTER TABLE `tbl_grades`
 ALTER TABLE `tbl_post`
   ADD CONSTRAINT `tbl_post_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `tbl_user` (`user_id`),
   ADD CONSTRAINT `tbl_post_ibfk_2` FOREIGN KEY (`c_id`) REFERENCES `tbl_categories` (`c_id`);
+
+--
+-- Constraints for table `tbl_sched`
+--
+ALTER TABLE `tbl_sched`
+  ADD CONSTRAINT `daysched` FOREIGN KEY (`day_id`) REFERENCES `tbl_day` (`day_id`),
+  ADD CONSTRAINT `inssched` FOREIGN KEY (`ins_id`) REFERENCES `tbl_instructor` (`ins_id`),
+  ADD CONSTRAINT `roomsched` FOREIGN KEY (`room_id`) REFERENCES `tbl_room` (`room_id`),
+  ADD CONSTRAINT `sbjsched` FOREIGN KEY (`sbj_id`) REFERENCES `tbl_subject` (`sbj_id`),
+  ADD CONSTRAINT `secsched` FOREIGN KEY (`sec_id`) REFERENCES `tbl_section` (`sec_id`),
+  ADD CONSTRAINT `semsched` FOREIGN KEY (`sem_id`) REFERENCES `tbl_sem` (`sem_id`),
+  ADD CONSTRAINT `sysched` FOREIGN KEY (`sy_id`) REFERENCES `tbl_sy` (`sy_id`),
+  ADD CONSTRAINT `yearsched` FOREIGN KEY (`yr_id`) REFERENCES `tbl_yr` (`yr_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

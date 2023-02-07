@@ -2,7 +2,6 @@
 
 include_once '../includes/connect.php';
 session_start();
-var_dump($_SESSION);
 
 $_SESSION['syear'] = $_POST["sy"];
 $_SESSION['section'] = $_POST["sec"];
@@ -12,13 +11,15 @@ $_SESSION['inst'] = $_POST["ins"];
 
 
 
-$count=$conn->prepare("SELECT COUNT(*) AS Count, ROUND(AVG(final), 2) AS Average FROM tbl_grades WHERE sbj_id = :sbjid AND yr_id = :yrid AND sec_id = :secid");
+$count=$conn->prepare("SELECT COUNT(*) AS Count, ROUND(AVG(final), 2) AS Average FROM tbl_grades WHERE sbj_id = :sbjid AND yr_id = :yrid AND sec_id = :secid AND ins_id = :insid");
 $count->bindParam(':sbjid', $_SESSION['course']);
 $count->bindParam(':yrid', $_SESSION['yearlvl']);
 $count->bindParam(':secid', $_SESSION['section']);
+$count->bindParam(':insid', $_SESSION['inst']);
 $count->execute();
 $counts = $count->fetch(PDO::FETCH_ASSOC);
 $num = $counts["Count"];
+
 
 
 
@@ -74,9 +75,6 @@ $statement->bindParam(':yrid', $yearlvl);
 $statement->bindParam(':insid', $inst);
 $statement->execute();
 $sbj_info = $statement->fetch(PDO::FETCH_ASSOC);
-
-
-
 
 
 ?>
