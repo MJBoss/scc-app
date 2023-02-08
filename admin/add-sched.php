@@ -2,7 +2,7 @@
 include_once '../templates/header.php';
 include "../includes/connect.php";
 include "../includes/connection.php";
-var_dump($_POST);
+
 ?>
     <!-- Begin Page Content -->
     <div class="container-fluid">
@@ -59,7 +59,7 @@ var_dump($_POST);
                                     echo "<select name=sbj value='' class='form-control' required>Subject</option>";
                                     echo "<option value=''>Select</option>";
                                     foreach ($conn->query($sql) as $row){
-                                    echo "<option value=$row[sbj_id]>$row[sbj_desc]</option>"; 
+                                    echo "<option value=$row[sbj_id]>$row[sbj_code]: $row[sbj_desc]</option>"; 
                                     }echo "</select>";
                                 ?>
                                 <br/>
@@ -118,20 +118,6 @@ var_dump($_POST);
                                 ?>
                                 <br/>
 
-                                <!-- <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">quantity</label>
-                                    <input type="number" class="form-control" name="quantity" >
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Unit</label>
-                                    <input type="text" class="form-control"  name="unit">
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Price</label>
-                                    <input type="number" class="form-control"  name ="price">
-                                </div> -->
 
                             </div>
                             <div class="modal-footer">
@@ -151,10 +137,16 @@ var_dump($_POST);
 <?php
 if(isset($_POST["submit"])){
 
+
+    $sy = $_POST["sy"];
+    $sem = $_POST["sem"];
+    $ins = $_POST["ins"];
+    $sbj = $_POST["sbj"];
+    $yr = $_POST["year"];
+    $sec = $_POST["sec"];
     $day = $_POST["day"];
     $st = $_POST["stime"];
     $en = $_POST["etime"];
-    $sbj = $_POST["sbj"];
     $rom = $_POST["room"];
 
 
@@ -172,20 +164,16 @@ if(isset($_POST["submit"])){
         if(empty($result)){
 
             
-            // try {
-            //     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            try {
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $sql = "INSERT INTO `tbl_sched`(`sy_id`, `sem_id`, `ins_id`, `sbj_id`, `day_id`, `yr_id`, `sec_id`, `start_time`, `end_time`, `room_id`) VALUES ('$sy','$sem','$ins','$sbj','$day','$yr','$sec','$st','$en','$rom')";
+                $conn->exec($sql);
+                echo "New record created successfully";
+              } catch(PDOException $e) {
+                echo $sql . "<br>" . $e->getMessage();
+              }
               
-                
-               
-              
-              
-            //     $conn->exec($sql);
-            //     echo "New record created successfully";
-            //   } catch(PDOException $e) {
-            //     echo $sql . "<br>" . $e->getMessage();
-            //   }
-              
-            //   $conn = null;
+              $conn = null;
             
             echo 'success';
         }else{

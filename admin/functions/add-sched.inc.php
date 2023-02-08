@@ -6,10 +6,15 @@ include("../../includes/connection.php");
 
 if(isset($_POST["submit"])){
 
+    $sy = $_POST["sy"];
+    $sem = $_POST["sem"];
+    $ins = $_POST["ins"];
+    $sbj = $_POST["sbj"];
+    $yr = $_POST["year"];
+    $sec = $_POST["sec"];
     $day = $_POST["day"];
     $st = $_POST["stime"];
     $en = $_POST["etime"];
-    $sbj = $_POST["sbj"];
     $rom = $_POST["room"];
 
 
