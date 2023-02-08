@@ -155,8 +155,12 @@ if(isset($_POST["submit"])){
         $dbs = $database->open();
   
 
-        $sql = "SELECT * FROM tbl_sched WHERE room_id = '$rom' AND day_id = '$day' AND  ('$st' BETWEEN start_time AND end_time
-                OR '$en' BETWEEN start_time AND end_time OR '$st' >= end_time AND '$en' <= end_time)";
+
+            $sql = "SELECT * 
+            FROM tbl_sched 
+            WHERE day_id = '$day'
+            AND  ('$st' BETWEEN start_time AND end_time OR '$en' 
+                        BETWEEN start_time AND end_time OR '$st' >= start_time AND '$en' <= end_time)";
 
         $stmt = $dbs->query($sql);
         $result = $stmt->fetchAll();
