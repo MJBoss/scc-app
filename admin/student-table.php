@@ -32,7 +32,6 @@ include_once '../includes/connection.php';
                                         <th>Student Id</th>
                                         <th>Name</th>
                                         <th>Gender</th>
-                                        <th>Year Level</th>
                                         <th>Action</th>
                                         </tr>
                                     </thead>
@@ -41,7 +40,6 @@ include_once '../includes/connection.php';
                                         <th>Student Id</th>
                                         <th>Name</th>
                                         <th>Gender</th>
-                                        <th>Year Level</th>
                                         <th>Action</th>
                                         </tr>
                                     </tfoot>
@@ -53,15 +51,14 @@ include_once '../includes/connection.php';
                                         $db = $database->open();
                                         try{	
                                             $sql = 'SELECT * FROM tbl_students
-                                                    INNER JOIN tbl_yr
-                                                    ON tbl_students.yr_id = tbl_yr.yr_id';
+                                                    INNER JOIN tbl_course
+                                                    ON tbl_students.course_id = tbl_course.course_id';
                                             foreach ($db->query($sql) as $row) {
                                                 ?>
                                                 <tr>
                                                     <td><?php echo $row["s_id"]?></td>
                                                     <td><?php echo $row["s_name"]?></td>
                                                     <td><?php echo $row["s_gender"]?></td>
-                                                    <td><?php echo $row["yr_desc"]?></td>
                                                     <td>
                                                     <a href="#edit_<?php echo $row['s_id']; ?>" class="btn btn-success btn-sm" data-toggle="modal">Edit</a>
                                                         
@@ -69,9 +66,12 @@ include_once '../includes/connection.php';
                                                         
                                                         
 
-                                                        <form action="blank.php" method="post" style="float: left">
+                                                        <form action="enrollment-details.php" method="post" style="float: left">
+
+                                                        <input type="hidden" name="dept" value="<?php echo $row["course_id"]?>">
+                                                        <input type="hidden" name="sid" value="<?php echo $row["s_id"]?>">
                                                     
-                                                        <button type="submit" name="submit" class="btn btn-danger btn-sm" style="margin: 0 11px 0 0;" value="<?php echo $row["s_id"]?>">Subjects</button>
+                                                        <button type="submit" name="submit" class="btn btn-danger btn-sm" style="margin: 0 11px 0 0;" value="<?php echo $row["s_id"]?>">Enroll</button>
                                                         </form>
                                                         <!-- <a href="#edit_< ?php echo $row['s_id']; ?>" class="btn btn-success btn-sm" data-toggle="modal" data-target="#editStudentModal"><span class="glyphicon glyphicon-edit"></span> Edit</a>
                                                         <a href="#delete_< ?php echo $row['s_id']; ?>" class="btn btn-danger btn-sm" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span> Delete</a> -->

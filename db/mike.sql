@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 10, 2023 at 09:11 AM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 7.4.30
+-- Generation Time: Feb 10, 2023 at 05:29 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,7 +33,7 @@ CREATE TABLE `employeeinfo` (
   `lastname` varchar(30) NOT NULL,
   `email` varchar(50) DEFAULT NULL,
   `reg_date` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `employeeinfo`
@@ -77,7 +77,7 @@ INSERT INTO `employeeinfo` (`emp_id`, `firstname`, `lastname`, `email`, `reg_dat
 CREATE TABLE `tbl_categories` (
   `c_id` int(20) NOT NULL,
   `category_name` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -89,7 +89,7 @@ CREATE TABLE `tbl_course` (
   `course_id` int(20) NOT NULL,
   `course_code` varchar(20) NOT NULL,
   `course_desc` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_course`
@@ -108,7 +108,7 @@ INSERT INTO `tbl_course` (`course_id`, `course_code`, `course_desc`) VALUES
 CREATE TABLE `tbl_day` (
   `day_id` int(10) NOT NULL,
   `day_desc` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_day`
@@ -123,6 +123,23 @@ INSERT INTO `tbl_day` (`day_id`, `day_desc`) VALUES
 (6, 'Saturday'),
 (7, 'Sunday'),
 (8, 'MW');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_enrollees`
+--
+
+CREATE TABLE `tbl_enrollees` (
+  `en_id` int(20) NOT NULL,
+  `sy_id` int(20) NOT NULL,
+  `sem_id` int(20) NOT NULL,
+  `s_id` int(20) NOT NULL,
+  `course_id` int(20) NOT NULL,
+  `yr_id` int(20) NOT NULL,
+  `date` datetime NOT NULL DEFAULT current_timestamp(),
+  `sec_id` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -170,7 +187,7 @@ CREATE TABLE `tbl_evaluation` (
   `eval_name` varchar(100) NOT NULL,
   `eval_course` varchar(50) NOT NULL,
   `eval_date` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_evaluation`
@@ -11925,7 +11942,7 @@ CREATE TABLE `tbl_general` (
   `gen_id` int(10) NOT NULL,
   `sy_id` int(10) NOT NULL,
   `sem_id` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_general`
@@ -11953,7 +11970,7 @@ CREATE TABLE `tbl_grades` (
   `midterm` varchar(10) NOT NULL,
   `prefinal` varchar(10) NOT NULL,
   `final` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_grades`
@@ -12461,7 +12478,7 @@ CREATE TABLE `tbl_instructor` (
   `ins_name` varchar(50) NOT NULL,
   `ins_dept` varchar(50) NOT NULL,
   `ins_status` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_instructor`
@@ -12572,7 +12589,7 @@ CREATE TABLE `tbl_post` (
   `post_date` varchar(30) NOT NULL,
   `post_desc` longtext NOT NULL,
   `post_status` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -12583,7 +12600,7 @@ CREATE TABLE `tbl_post` (
 CREATE TABLE `tbl_questions` (
   `que_id` int(10) NOT NULL,
   `que_desc` longtext NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_questions`
@@ -12630,7 +12647,7 @@ INSERT INTO `tbl_questions` (`que_id`, `que_desc`) VALUES
 CREATE TABLE `tbl_room` (
   `room_id` int(10) NOT NULL,
   `room_desc` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_room`
@@ -12659,7 +12676,7 @@ CREATE TABLE `tbl_sched` (
   `end_time` time NOT NULL,
   `room_id` int(10) NOT NULL,
   `course_id` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_sched`
@@ -12671,7 +12688,9 @@ INSERT INTO `tbl_sched` (`sched_id`, `sy_id`, `sem_id`, `ins_id`, `sbj_id`, `day
 (5, 1, 2, 200, 11, 1, 1, 2, '13:00:00', '15:30:00', 1, 1),
 (6, 1, 2, 200, 11, 3, 1, 2, '13:00:00', '15:30:00', 1, 1),
 (7, 1, 2, 200, 10, 1, 2, 1, '07:30:00', '10:00:00', 1, 1),
-(8, 1, 2, 200, 10, 3, 2, 1, '07:30:00', '10:00:00', 1, 1);
+(8, 1, 2, 200, 10, 3, 2, 1, '07:30:00', '10:00:00', 1, 1),
+(10, 1, 2, 200, 12, 7, 2, 1, '13:00:00', '17:00:00', 1, 1),
+(11, 1, 2, 228, 14, 3, 1, 1, '16:00:00', '20:00:00', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -12681,8 +12700,8 @@ INSERT INTO `tbl_sched` (`sched_id`, `sy_id`, `sem_id`, `ins_id`, `sbj_id`, `day
 
 CREATE TABLE `tbl_section` (
   `sec_id` int(10) NOT NULL,
-  `sec_desc` varchar(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `sec_desc` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_section`
@@ -12692,7 +12711,8 @@ INSERT INTO `tbl_section` (`sec_id`, `sec_desc`) VALUES
 (1, 'A'),
 (2, 'B'),
 (3, 'C'),
-(4, 'D');
+(4, 'D'),
+(6, 'Irregular');
 
 -- --------------------------------------------------------
 
@@ -12703,7 +12723,7 @@ INSERT INTO `tbl_section` (`sec_id`, `sec_desc`) VALUES
 CREATE TABLE `tbl_sem` (
   `sem_id` int(20) NOT NULL,
   `sem_desc` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_sem`
@@ -12731,7 +12751,7 @@ CREATE TABLE `tbl_students` (
   `s_email` varchar(50) NOT NULL,
   `yr_id` int(10) NOT NULL,
   `course_id` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_students`
@@ -13159,7 +13179,7 @@ CREATE TABLE `tbl_subject` (
   `sbj_desc` varchar(300) NOT NULL,
   `lab_units` int(10) NOT NULL,
   `lec_units` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_subject`
@@ -13177,7 +13197,8 @@ INSERT INTO `tbl_subject` (`sbj_id`, `sbj_code`, `sbj_desc`, `lab_units`, `lec_u
 (9, 'SA405', 'System Administrator and Maintenance', 3, 2),
 (10, 'PF205', 'Object-Oriented Programming 2', 3, 2),
 (11, 'CC103', 'Computer Programming 2', 3, 2),
-(12, 'IPT209', 'Integrative Programming and Technologies', 3, 2);
+(12, 'IPT209', 'Integrative Programming and Technologies', 3, 2),
+(14, 'HMPE101', 'Hospitality Sample Course ', 4, 4);
 
 -- --------------------------------------------------------
 
@@ -13188,7 +13209,7 @@ INSERT INTO `tbl_subject` (`sbj_id`, `sbj_code`, `sbj_desc`, `lab_units`, `lec_u
 CREATE TABLE `tbl_sy` (
   `sy_id` int(20) NOT NULL,
   `sy_desc` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_sy`
@@ -13209,7 +13230,7 @@ CREATE TABLE `tbl_user` (
   `lastName` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_user`
@@ -13236,7 +13257,7 @@ INSERT INTO `tbl_user` (`user_id`, `firstName`, `lastName`, `email`, `password`)
 CREATE TABLE `tbl_yr` (
   `yr_id` int(10) NOT NULL,
   `yr_desc` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_yr`
@@ -13275,6 +13296,12 @@ ALTER TABLE `tbl_course`
 --
 ALTER TABLE `tbl_day`
   ADD PRIMARY KEY (`day_id`);
+
+--
+-- Indexes for table `tbl_enrollees`
+--
+ALTER TABLE `tbl_enrollees`
+  ADD PRIMARY KEY (`en_id`);
 
 --
 -- Indexes for table `tbl_evaluation`
@@ -13409,6 +13436,12 @@ ALTER TABLE `tbl_day`
   MODIFY `day_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT for table `tbl_enrollees`
+--
+ALTER TABLE `tbl_enrollees`
+  MODIFY `en_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `tbl_evaluation`
 --
 ALTER TABLE `tbl_evaluation`
@@ -13448,13 +13481,13 @@ ALTER TABLE `tbl_room`
 -- AUTO_INCREMENT for table `tbl_sched`
 --
 ALTER TABLE `tbl_sched`
-  MODIFY `sched_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `sched_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tbl_section`
 --
 ALTER TABLE `tbl_section`
-  MODIFY `sec_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `sec_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_sem`
@@ -13466,7 +13499,7 @@ ALTER TABLE `tbl_sem`
 -- AUTO_INCREMENT for table `tbl_subject`
 --
 ALTER TABLE `tbl_subject`
-  MODIFY `sbj_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `sbj_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tbl_sy`
