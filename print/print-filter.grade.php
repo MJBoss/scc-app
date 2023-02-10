@@ -1,5 +1,7 @@
 <?php
 include_once '../templates/header.php';
+
+var_dump($_POST);
 ?>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -37,7 +39,7 @@ include_once '../templates/header.php';
                             }
                         }); 
                     }else{
-                        $('#city').html('<option value="">Select instructor first</option>'); 
+                        $('#subject').html('<option value="">Select instructor first</option>'); 
                     }
                 });
 
@@ -150,6 +152,12 @@ include_once '../templates/header.php';
                                     <option value="">Select year first</option>
                                 </select>
                                 <br/>
+
+
+                                <div id='table-grade'>
+
+
+                                </div>
 
                                
                                 <br/>

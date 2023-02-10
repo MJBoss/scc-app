@@ -63,7 +63,16 @@ include_once '../includes/connection.php';
                                                     <td><?php echo $row["s_gender"]?></td>
                                                     <td><?php echo $row["yr_desc"]?></td>
                                                     <td>
-                                                        <a href="#edit_<?php echo $row['s_id']; ?>" class="btn btn-success btn-sm" data-toggle="modal"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                                                    <a href="#edit_<?php echo $row['s_id']; ?>" class="btn btn-success btn-sm" data-toggle="modal">Edit</a>
+                                                        
+                                                        
+                                                        
+                                                        
+
+                                                        <form action="blank.php" method="post" style="float: left">
+                                                    
+                                                        <button type="submit" name="submit" class="btn btn-danger btn-sm" style="margin: 0 11px 0 0;" value="<?php echo $row["s_id"]?>">Subjects</button>
+                                                        </form>
                                                         <!-- <a href="#edit_< ?php echo $row['s_id']; ?>" class="btn btn-success btn-sm" data-toggle="modal" data-target="#editStudentModal"><span class="glyphicon glyphicon-edit"></span> Edit</a>
                                                         <a href="#delete_< ?php echo $row['s_id']; ?>" class="btn btn-danger btn-sm" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span> Delete</a> -->
                                                     </td>

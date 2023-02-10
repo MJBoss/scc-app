@@ -16,6 +16,7 @@ if(isset($_POST["submit"])){
     $st = $_POST["stime"];
     $en = $_POST["etime"];
     $rom = $_POST["room"];
+    $dept = $_POST["dept"];
 
 
 

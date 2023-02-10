@@ -70,6 +70,8 @@
                         <a class="collapse-item" href="../admin/sched-table.php">Department</a>
                         <a class="collapse-item" href="../admin/sched-table.php">Sections</a>
                         <a class="collapse-item" href="../admin/sched-table.php">Rooms</a>
+                        <a class="collapse-item" href="../admin/sample-loading.php">Loading</a>
+                        <a class="collapse-item" href="../admin/blank.php">Blank</a>
                         <a class="collapse-item" href="buttons.html">Buttons</a>
                         <a class="collapse-item" href="cards.html">Cards</a>
                     </div>

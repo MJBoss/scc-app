@@ -54,6 +54,17 @@ include "../includes/connection.php";
                                 <br/>
                                 <?php
                                     include "../includes/connect.php";
+                                    $sql="SELECT * FROM tbl_course"; 
+                                    echo "<label for='exampleFormControlInput1' class='form-label'>Department</label>";
+                                    echo "<select name=dept value='' class='form-control' required>Department</option>";
+                                    echo "<option value=''>Select</option>";
+                                    foreach ($conn->query($sql) as $row){
+                                    echo "<option value=$row[course_id]>$row[course_code]</option>"; 
+                                    }echo "</select>";
+                                ?>
+                                <br/>
+                                <?php
+                                    include "../includes/connect.php";
                                     $sql="SELECT * FROM tbl_subject"; 
                                     echo "<label for='exampleFormControlInput1' class='form-label'>Subject</label>";
                                     echo "<select name=sbj value='' class='form-control' required>Subject</option>";
@@ -148,6 +159,7 @@ if(isset($_POST["submit"])){
     $st = $_POST["stime"];
     $en = $_POST["etime"];
     $rom = $_POST["room"];
+    $dept = $_POST["dept"];
 
 
 
@@ -170,7 +182,7 @@ if(isset($_POST["submit"])){
             
             try {
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $sql = "INSERT INTO `tbl_sched`(`sy_id`, `sem_id`, `ins_id`, `sbj_id`, `day_id`, `yr_id`, `sec_id`, `start_time`, `end_time`, `room_id`) VALUES ('$sy','$sem','$ins','$sbj','$day','$yr','$sec','$st','$en','$rom')";
+                $sql = "INSERT INTO `tbl_sched`(`sy_id`, `sem_id`, `ins_id`, `sbj_id`, `day_id`, `yr_id`, `sec_id`, `start_time`, `end_time`, `room_id`, `course_id`) VALUES ('$sy','$sem','$ins','$sbj','$day','$yr','$sec','$st','$en','$rom', '$dept')";
                 $conn->exec($sql);
                 echo "New record created successfully";
               } catch(PDOException $e) {

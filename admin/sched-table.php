@@ -38,6 +38,7 @@ include_once '../includes/connection.php';
                                         <th>Room</th>
                                         <th>Instructor</th>
                                         <th>Section</th>
+                                        <th>Department</th>
                                         <th>Action</th>
                                         </tr>
                                     </thead>
@@ -50,6 +51,7 @@ include_once '../includes/connection.php';
                                         <th>Room</th>
                                         <th>Instructor</th>
                                         <th>Section</th>
+                                        <th>Department</th>
                                         <th>Action</th>
                                         </tr>
                                     </tfoot>
@@ -71,7 +73,9 @@ include_once '../includes/connection.php';
                                                     INNER JOIN tbl_instructor
                                                     ON tbl_sched.ins_id = tbl_instructor.ins_id
                                                     INNER JOIN tbl_section
-                                                    ON tbl_sched.sec_id = tbl_section.sec_id';
+                                                    ON tbl_sched.sec_id = tbl_section.sec_id
+                                                    INNER JOIN tbl_course
+                                                    ON tbl_sched.course_id = tbl_course.course_id';
                                             foreach ($db->query($sql) as $row) {                              
                                             ?>
                                                 <tr>
@@ -82,6 +86,7 @@ include_once '../includes/connection.php';
                                                     <td><?php echo $row["room_desc"]?></td>
                                                     <td><?php echo $row["ins_name"]?></td>
                                                     <td><?php echo $row["sec_desc"]?></td>
+                                                    <td><?php echo $row["course_code"]?></td>
                                                     <td>
                                                     <form action="eval.solo.php" method="post" style="margin: 0;">
                                                         <input type="hidden" name="ins_id" value="<?php echo $row['ins_id']; ?>">
