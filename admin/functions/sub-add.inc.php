@@ -1,8 +1,14 @@
+<?php 
+session_start();
+var_dump($_SESSION);
+?>
+
+
 <?php
 
 include_once("../../includes/connection.php");
 
-if(isset($_POST["enroll"])){
+if(isset($_SESSION["s_id"])){
 
     $stid = $_POST["stid"];
     $syid = $_POST["syid"];
@@ -51,7 +57,7 @@ if(isset($_POST["enroll"])){
     
     }else{
 
-        header("location:../student-table.php?error=nofile");
+        header("location:../blank?error=unsuccess");
     }
 
 ?>

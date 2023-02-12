@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 10, 2023 at 05:29 PM
+-- Generation Time: Feb 12, 2023 at 03:17 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -134,12 +134,19 @@ CREATE TABLE `tbl_enrollees` (
   `en_id` int(20) NOT NULL,
   `sy_id` int(20) NOT NULL,
   `sem_id` int(20) NOT NULL,
-  `s_id` int(20) NOT NULL,
+  `s_id` varchar(20) NOT NULL,
   `course_id` int(20) NOT NULL,
   `yr_id` int(20) NOT NULL,
   `date` datetime NOT NULL DEFAULT current_timestamp(),
   `sec_id` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_enrollees`
+--
+
+INSERT INTO `tbl_enrollees` (`en_id`, `sy_id`, `sem_id`, `s_id`, `course_id`, `yr_id`, `date`, `sec_id`) VALUES
+(8, 1, 2, 'SCC-11-000170', 1, 1, '2023-02-11 23:23:30', 1);
 
 -- --------------------------------------------------------
 
@@ -12737,6 +12744,18 @@ INSERT INTO `tbl_sem` (`sem_id`, `sem_desc`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_stsub`
+--
+
+CREATE TABLE `tbl_stsub` (
+  `stsub_id` int(20) NOT NULL,
+  `en_id` int(20) NOT NULL,
+  `sched_id` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_students`
 --
 
@@ -13301,7 +13320,13 @@ ALTER TABLE `tbl_day`
 -- Indexes for table `tbl_enrollees`
 --
 ALTER TABLE `tbl_enrollees`
-  ADD PRIMARY KEY (`en_id`);
+  ADD PRIMARY KEY (`en_id`),
+  ADD KEY `ensy` (`sy_id`),
+  ADD KEY `ensem` (`sem_id`),
+  ADD KEY `ensid` (`s_id`),
+  ADD KEY `courseen` (`course_id`),
+  ADD KEY `enyear` (`yr_id`),
+  ADD KEY `ensec` (`sec_id`);
 
 --
 -- Indexes for table `tbl_evaluation`
@@ -13383,6 +13408,12 @@ ALTER TABLE `tbl_sem`
   ADD PRIMARY KEY (`sem_id`);
 
 --
+-- Indexes for table `tbl_stsub`
+--
+ALTER TABLE `tbl_stsub`
+  ADD PRIMARY KEY (`stsub_id`);
+
+--
 -- Indexes for table `tbl_students`
 --
 ALTER TABLE `tbl_students`
@@ -13439,7 +13470,7 @@ ALTER TABLE `tbl_day`
 -- AUTO_INCREMENT for table `tbl_enrollees`
 --
 ALTER TABLE `tbl_enrollees`
-  MODIFY `en_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `en_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_evaluation`
@@ -13496,6 +13527,12 @@ ALTER TABLE `tbl_sem`
   MODIFY `sem_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `tbl_stsub`
+--
+ALTER TABLE `tbl_stsub`
+  MODIFY `stsub_id` int(20) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `tbl_subject`
 --
 ALTER TABLE `tbl_subject`
@@ -13522,6 +13559,17 @@ ALTER TABLE `tbl_yr`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `tbl_enrollees`
+--
+ALTER TABLE `tbl_enrollees`
+  ADD CONSTRAINT `courseen` FOREIGN KEY (`course_id`) REFERENCES `tbl_course` (`course_id`),
+  ADD CONSTRAINT `ensec` FOREIGN KEY (`sec_id`) REFERENCES `tbl_section` (`sec_id`),
+  ADD CONSTRAINT `ensem` FOREIGN KEY (`sem_id`) REFERENCES `tbl_sem` (`sem_id`),
+  ADD CONSTRAINT `ensid` FOREIGN KEY (`s_id`) REFERENCES `tbl_students` (`s_id`),
+  ADD CONSTRAINT `ensy` FOREIGN KEY (`sy_id`) REFERENCES `tbl_sy` (`sy_id`),
+  ADD CONSTRAINT `enyear` FOREIGN KEY (`yr_id`) REFERENCES `tbl_yr` (`yr_id`);
 
 --
 -- Constraints for table `tbl_general`

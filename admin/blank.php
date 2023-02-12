@@ -54,6 +54,8 @@ table.dataTable>thead .sorting:before, table.dataTable>thead .sorting:after, tab
                     <th>Start</th>
                     <th>End</th>
                     <th>Section</th>
+                    <th>Year</th>
+                    <th>Department</th>
                     <th>Action</th>
                     </tr>
                 </thead>
@@ -68,6 +70,8 @@ table.dataTable>thead .sorting:before, table.dataTable>thead .sorting:after, tab
                         
                         $sec = $_SESSION['sec_id'];
                         $sid = $_SESSION['s_id'];
+                        $year = $_SESSION['yr_id'];
+                        $dept = $_SESSION['dept_id'];
 
                     }else{
                         $sid=0;
@@ -88,18 +92,25 @@ table.dataTable>thead .sorting:before, table.dataTable>thead .sorting:after, tab
                                 INNER JOIN tbl_section
                                 ON tbl_sched.sec_id = tbl_section.sec_id
                                 INNER JOIN tbl_day
-                                ON tbl_sched.day_id = tbl_day.day_id";
+                                ON tbl_sched.day_id = tbl_day.day_id
+                                INNER JOIN tbl_yr
+                                ON tbl_sched.yr_id = tbl_yr.yr_id
+                                INNER JOIN tbl_course
+                                ON tbl_sched.course_id = tbl_course.course_id";
                         }else{
                         $sql = "SELECT * FROM tbl_sched
-                                INNER JOIN tbl_students
-                                ON tbl_sched.course_id = tbl_students.course_id
                                 INNER JOIN tbl_subject
                                 ON tbl_sched.sbj_id = tbl_subject.sbj_id
                                 INNER JOIN tbl_section
                                 ON tbl_sched.sec_id = tbl_section.sec_id
                                 INNER JOIN tbl_day
                                 ON tbl_sched.day_id = tbl_day.day_id
-                                WHERE tbl_students.s_id = '$sid' AND tbl_section.sec_id = '$sec'";      
+                                INNER JOIN tbl_yr
+                                ON tbl_sched.yr_id = tbl_yr.yr_id
+                                INNER JOIN tbl_course
+                                ON tbl_sched.course_id = tbl_course.course_id
+                                WHERE tbl_yr.yr_id = '$year' AND tbl_section.sec_id = '$sec'
+                                AND tbl_course.course_id = '$dept'";      
                         }
                         foreach ($db->query($sql) as $row) {
                             ?>
@@ -110,10 +121,12 @@ table.dataTable>thead .sorting:before, table.dataTable>thead .sorting:after, tab
                                 <td><?php echo date('h:i A', strtotime($row['start_time']))?></td>
                                 <td><?php echo date('h:i A', strtotime($row['end_time']))?></td>
                                 <td><?php echo $row["sec_desc"]?></td>
+                                <td><?php echo $row["yr_desc"]?></td>
+                                <td><?php echo $row["course_code"]?></td>
                                 <td>
                        
 
-                                    <form action="blank.php" method="post" style="float: left">
+                                    <form action="functions/sub-add.inc.php" method="post" style="float: left">
                                 
                                     <button type="submit" name="submit" class="btn btn-success btn-sm" style="margin: 3px 11px -12px 0;" value="<?php echo $sid?>"><i class="fas fa-plus fa-sm text-white-50"></i> Add</button>
                                     </form>
@@ -166,12 +179,25 @@ table.dataTable>thead .sorting:before, table.dataTable>thead .sorting:after, tab
                 <tbody>
                 <?php
                     //include our connection
+
+                    // if(isset($_SESSION['s_id'])){
+
+                        
+                    //     $sec = $_SESSION['sec_id'];
+                    //     $sid = $_SESSION['s_id'];
+                    //     $year = $_SESSION['yr_id'];
+                    //     $dept = $_SESSION['dept_id'];
+
+                    // }else{
+                    //     $sid=0;
+                    // }
+        
                 
-                    if(isset($_POST['submit'])){
-                        $sid = $_POST['submit'];
-                    }else{
-                        $sid=0;
-                    }
+                    // if(isset($_POST['submit'])){
+                    //     $sid = $_POST['submit'];
+                    // }else{
+                    //     $sid=0;
+                    // }
         
                     
 
@@ -180,16 +206,11 @@ table.dataTable>thead .sorting:before, table.dataTable>thead .sorting:after, tab
                     $database = new Connection();
                     $db = $database->open();
                     try{	
-                        $sql = "SELECT * FROM tbl_sched
-                                INNER JOIN tbl_students
-                                ON tbl_sched.course_id = tbl_students.course_id
-                                INNER JOIN tbl_subject
-                                ON tbl_sched.sbj_id = tbl_subject.sbj_id
-                                INNER JOIN tbl_section
-                                ON tbl_sched.sec_id = tbl_section.sec_id
-                                INNER JOIN tbl_day
-                                ON tbl_sched.day_id = tbl_day.day_id
-                                WHERE tbl_students.s_id = '$sid'";
+                        $sql = "SELECT * FROM tbl_stsub
+                        INNER JOIN tbl_students
+                        ON tbl_enrollees.s_id = tbl_students.s_id
+                        INNER JOIN tbl_section
+                        ON tbl_enrollees.sec_id = tbl_section.sec_id";
                         foreach ($db->query($sql) as $row) {
                             ?>
                             <tr>
@@ -202,8 +223,7 @@ table.dataTable>thead .sorting:before, table.dataTable>thead .sorting:after, tab
                                 <td>
                        
 
-                                    <form action="blank.php" method="post" style="float: left">
-                                
+                                    <form action="functions/sub-add.inc.php" method="post" style="float: left">
                                     <button type="submit" name="submit" class="btn btn-success btn-sm" style="margin: 0 11px 0 0;" value="<?php echo $row["s_id"]?>"><i class="fas fa-plus fa-sm text-white-50"></i> Add</button>
                                     </form>
                                     <!-- <a href="#edit_< ?php echo $row['s_id']; ?>" class="btn btn-success btn-sm" data-toggle="modal" data-target="#editStudentModal"><span class="glyphicon glyphicon-edit"></span> Edit</a>
