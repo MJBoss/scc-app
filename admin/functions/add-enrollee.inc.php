@@ -2,6 +2,8 @@
 
 include_once("../../includes/connection.php");
 
+//heLLO UNIVERSE
+
 if(isset($_POST["enroll"])){
 
     $stid = $_POST["stid"];
